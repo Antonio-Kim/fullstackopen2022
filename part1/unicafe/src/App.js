@@ -1,42 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const Header = ({ title }) => <h1>{title}</h1>
-const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>
-const Statistic = ({ type, name }) => <div>{name} {type}</div>
+const Header = ({ title }) => <h1>{title}</h1>;
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
+const Statistic = ({ type, name }) => (
+  <div>
+    {name} {type}
+  </div>
+);
 const Statistics = ({ good, neutral, bad }) => {
   const all = good + neutral + bad;
   const average = good * 1 + neutral * 0 + bad * -1;
   const positive = good / all;
-  
-  return (
-    <div>
-      <Statistic name='good' type={good} />
-      <Statistic name='neutral' type={neutral} />
-      <Statistic name='bad' type={bad} />
-      <Statistic name='all' type={all} />
-      <Statistic name='average' type={average} />
-      <Statistic name='positive' type={`${positive * 100} %`} />
-    </div>
-  )
-}
 
+  if (all === 0) {
+    return "No feedback given";
+  } else {
+    return (
+      <div>
+        <Statistic name="good" type={good} />
+        <Statistic name="neutral" type={neutral} />
+        <Statistic name="bad" type={bad} />
+        <Statistic name="all" type={all} />
+        <Statistic name="average" type={average} />
+        <Statistic name="positive" type={`${positive * 100} %`} />
+      </div>
+    );
+  }
+};
 
 const App = () => {
-  const [ good, setGood ] = useState(0);
-  const [ neutral, setNeutral ] = useState(0);
-  const [ bad, setBad ] = useState(0);
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
-  const handleGoodClick = () => setGood(good+1);
-  const handleNeutralClick = () => setNeutral(neutral+1);
-  const handleBadClick = () => setBad(bad+1);
+  const handleGoodClick = () => setGood(good + 1);
+  const handleNeutralClick = () => setNeutral(neutral + 1);
+  const handleBadClick = () => setBad(bad + 1);
 
   return (
     <div>
-      <Header title='give feedback' />
-      <Button onClick={handleGoodClick} text='good' />
-      <Button onClick={handleNeutralClick} text='neutral' />
-      <Button onClick={handleBadClick} text='bad' />
-      <Header title='statistics' />
+      <Header title="give feedback" />
+      <Button onClick={handleGoodClick} text="good" />
+      <Button onClick={handleNeutralClick} text="neutral" />
+      <Button onClick={handleBadClick} text="bad" />
+      <Header title="statistics" />
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   );
