@@ -2,28 +2,32 @@ import React, { useState } from "react";
 
 const Header = ({ title }) => <h1>{title}</h1>;
 const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
-const Statistic = ({ type, name }) => (
-  <div>
-    {name} {type}
-  </div>
+const StatisticLine = ({ value, text }) => (
+  <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
 );
 const Statistics = ({ good, neutral, bad }) => {
   const all = good + neutral + bad;
-  const average = good * 1 + neutral * 0 + bad * -1;
+  const average = (good * 1 + neutral * 0 + bad * -1) / all;
   const positive = good / all;
 
   if (all === 0) {
     return "No feedback given";
   } else {
     return (
-      <div>
-        <Statistic name="good" type={good} />
-        <Statistic name="neutral" type={neutral} />
-        <Statistic name="bad" type={bad} />
-        <Statistic name="all" type={all} />
-        <Statistic name="average" type={average} />
-        <Statistic name="positive" type={`${positive * 100} %`} />
-      </div>
+      <table>
+        <thead></thead>
+        <tbody>
+          <StatisticLine text="good" value={good} />
+          <StatisticLine text="neutral" value={neutral} />
+          <StatisticLine text="bad" value={bad} />
+          <StatisticLine text="all" value={all} />
+          <StatisticLine text="average" value={average} />
+          <StatisticLine text="positive" value={`${positive * 100} %`} />
+        </tbody>
+      </table>
     );
   }
 };
