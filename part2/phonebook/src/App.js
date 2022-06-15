@@ -3,7 +3,7 @@ import React, { useState } from "react";
 const DisplayPerson = ({ person }) => <div>{person.name}</div>;
 
 const DisplayPhonebook = ({ persons }) => {
-  return persons.map((person, i) => <DisplayPerson key={i} person={person} />);
+  return persons.map( (person, index) => <DisplayPerson key={index} person={person} />);
 };
 
 const App = () => {
@@ -15,15 +15,13 @@ const App = () => {
     const nameObject = {
       name: newName,
     };
-    for (let i = 0; i < persons.length; i++) {
-      if (JSON.stringify(persons[i]) === JSON.stringify(nameObject)) {
-        console.log("Duplicate")
-        setNewName("")
-      } else {
-        setPersons(persons.concat(nameObject));
-        setNewName("")
-      }
+    const existingPerson = persons.find( person => person.name === nameObject.name);
+    if (existingPerson) {
+      window.alert(`${newName} is already added to phonebook.`);
+      return;
     }
+    setPersons(persons.concat({ name: newName}))
+    setNewName('');
   };
 
   const handleAddPerson = (event) => {
