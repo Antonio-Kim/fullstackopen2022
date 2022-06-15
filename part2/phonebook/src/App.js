@@ -55,7 +55,6 @@ const App = () => {
   const namesToShow = persons.filter((person) =>
     person.name.toLowerCase().includes(newFilter.toLowerCase())
   );
-  // console.log(namesToShow);
 
   return (
     <div>
@@ -65,6 +64,7 @@ const App = () => {
           filter shown with <input value={newFilter} onChange={handleFilter} />
         </div>
       </form>
+      <h2>add a new</h2>
       <form onSubmit={addPerson}>
         <div>
           name: <input value={newName} onChange={handleAddPerson} />
