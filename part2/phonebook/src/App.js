@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
-const DisplayPhonebook = ({ persons }) => (
-  persons.map((person, i) => <div key={i}>{person.name}</div>)
-);
+const DisplayPerson = ({ person }) => <div>{person.name}</div>;
+
+const DisplayPhonebook = ({ persons }) => {
+  return persons.map((person, i) => <DisplayPerson key={i} person={person} />);
+};
 
 const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
@@ -13,8 +15,15 @@ const App = () => {
     const nameObject = {
       name: newName,
     };
-    setPersons(persons.concat(nameObject));
-    setNewName("");
+    for (let i = 0; i < persons.length; i++) {
+      if (JSON.stringify(persons[i]) === JSON.stringify(nameObject)) {
+        console.log("Duplicate")
+        setNewName("")
+      } else {
+        setPersons(persons.concat(nameObject));
+        setNewName("")
+      }
+    }
   };
 
   const handleAddPerson = (event) => {
