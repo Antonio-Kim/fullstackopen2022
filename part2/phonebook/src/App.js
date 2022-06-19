@@ -21,7 +21,21 @@ const App = () => {
 
     const existingPerson = persons.find((person) => person.name === newName);
     if (existingPerson) {
-      window.alert(`${newName} is already added to phonebook.`);
+      const confirm = window.confirm(
+        `${newName} is already added to phonebook, replace the old number with a new one?`
+      );
+      if (confirm) {
+        const id = persons.findIndex((person) => person.name === newName);
+        personService
+          .update(persons[id].id, { name: newName, number: newNumber })
+          .then(response => {
+            const updatedList = [...persons];
+            updatedList[id] = response;
+            setPersons(updatedList);
+          });
+        setNewName("");
+        setNewNumber("");
+      }
       return;
     }
 
@@ -29,7 +43,6 @@ const App = () => {
       .create({
         name: newName,
         number: newNumber,
-        id: persons.length + 1,
       })
       .then((newPerson) => {
         setPersons(persons.concat(newPerson));
