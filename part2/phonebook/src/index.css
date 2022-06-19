@@ -7,3 +7,13 @@
     padding: 10px;
     margin-bottom: 10px;
 }
+
+.update_error {
+    color: red;
+    background: grey;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}

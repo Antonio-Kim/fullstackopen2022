@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import Persons from "./components/Persons";
 import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
-import Notification from "./components/Notification";
+import Success from "./components/Success";
+import UpdateError from "./components/UpdateError";
 
 import personService from "./services/persons";
 
@@ -12,7 +13,8 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [newFilter, setNewFilter] = useState("");
-  const [newMessage, setNewMessage] = useState(null)
+  const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     personService.getAll().then((persons) => setPersons(persons));
@@ -34,7 +36,14 @@ const App = () => {
             const updatedList = [...persons];
             updatedList[id] = response;
             setPersons(updatedList);
+          })
+          .catch(error => {
+            setErrorMessage(`Information of ${newName} has already been removed from server`);
+            setTimeout(() => {
+              setErrorMessage(null);
+            }, 3000)
           });
+        setPersons(persons.filter(person => person.id !== id+1))
         setNewName("");
         setNewNumber("");
       }
@@ -48,9 +57,9 @@ const App = () => {
       })
       .then((newPerson) => {
         setPersons(persons.concat(newPerson));
-        setNewMessage(`Added ${newPerson.name}`)
+        setSuccessMessage(`Added ${newPerson.name}`)
         setTimeout(()=> {
-          setNewMessage(null)
+          setSuccessMessage(null)
         }, 3000)
       });
 
@@ -75,7 +84,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={newMessage} />
+      <Success message={successMessage} />
+      <UpdateError message={errorMessage} />
       <Filter newFilter={newFilter} handleFilter={handleFilter} />
 
       <h2>add a new</h2>
