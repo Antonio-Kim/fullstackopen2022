@@ -47,3 +47,7 @@ Implement functionality that makes it possible to delete a single phonebook entr
 
 Test that your functionality works with either Postman or the Visual Studio Code REST client.
 
+## 3.5: Phonebook backend step5
+Expand the backend so that new phonebook entries can be added by making HTTP POST requests to the address http://localhost:3001/api/persons.
+
+Generate a new id for the phonebook entry with the Math.random function. Use a big enough range for your random values so that the likelihood of creating duplicate ids is small.
