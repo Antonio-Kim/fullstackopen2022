@@ -60,8 +60,14 @@ app.post("/api/persons/", (request, response) => {
   const body = request.body;
   if (!body.name || !body.number) {
     return response.status(400).json({
-      error: `content missing`,
+      error: `name or number is missing`
     });
+  }
+
+  if (persons.find(person => person.name.toLowerCase() === body.name.toLowerCase())) {
+    return response.status(400).json({
+      error: `person already exists in database`
+    })
   }
 
   const person = {
