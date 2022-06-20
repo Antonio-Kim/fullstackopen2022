@@ -1,0 +1,19 @@
+{
+  "name": "phonebook",
+  "version": "0.0.1",
+  "description": "Implement a Node application that returns a hardcoded list of phonebook entries from the address http://localhost:3001/api/persons.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
+  "author": "Antonio Kim",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
