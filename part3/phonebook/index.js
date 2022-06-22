@@ -1,12 +1,16 @@
 const express = require("express");
-const morgan = require('morgan');
-const app = express();
+const morgan = require("morgan");
+const cors = require("cors");
 
+const app = express();
+app.use(cors());
 app.use(express.json());
-morgan.token('data', (req, res) => {
+morgan.token("data", (req, res) => {
   return JSON.stringify(req.body);
-})
-app.use(morgan(':method :url :status :res[content-length] - :response-time ms :data'))
+});
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms :data")
+);
 
 let persons = [
   {
@@ -65,14 +69,18 @@ app.post("/api/persons/", (request, response) => {
   const body = request.body;
   if (!body.name || !body.number) {
     return response.status(400).json({
-      error: `name or number is missing`
+      error: `name or number is missing`,
     });
   }
 
-  if (persons.find(person => person.name.toLowerCase() === body.name.toLowerCase())) {
+  if (
+    persons.find(
+      (person) => person.name.toLowerCase() === body.name.toLowerCase()
+    )
+  ) {
     return response.status(400).json({
-      error: `person already exists in database`
-    })
+      error: `person already exists in database`,
+    });
   }
 
   const person = {
@@ -84,8 +92,6 @@ app.post("/api/persons/", (request, response) => {
   persons = persons.concat(person);
   response.json(person);
 });
-
-
 
 const PORT = 3001;
 app.listen(PORT, () => {
