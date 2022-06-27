@@ -178,3 +178,8 @@ In the following exercises, write all Mongoose-specific code into its own module
 Change the backend so that new numbers are saved to the database. Verify that your frontend still works after the changes.
 
 At this point, you can choose to simply allow users to create all phonebook entries. At this stage, the phonebook can have multiple entries for a person with the same name.
+
+## 3.15: Phonebook database, step3
+Change the backend so that deleting phonebook entries is reflected in the database.
+
+Verify that the frontend still works after making the changes.
