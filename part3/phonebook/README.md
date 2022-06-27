@@ -80,3 +80,101 @@ This exercise can be quite challenging, even though the solution does not requir
 This exercise can be completed in a few different ways. One of the possible solutions utilizes these two techniques:
 - creating new tokens
 - JSON.stringify
+
+## 3.9 phonebook backend step 9
+Make the backend work with the phonebook frontend from the exercises of the previous part. Do not implement the functionality for making changes to the phone numbers yet, that will be implemented in exercise 3.17.
+
+You will probably have to do some small changes to the frontend, at least to the URLs for the backend. Remember to keep the developer console open in your browser. If some HTTP requests fail, you should check from the Network-tab what is going on. Keep an eye on the backend's console as well. If you did not do the previous exercise, it is worth it to print the request data or request.body to the console in the event handler responsible for POST requests.
+
+## 3.10 phonebook backend step 10
+Deploy the backend to the internet, for example to Heroku.
+
+NB the command heroku works on the department's computers and the freshman laptops. If for some reason you cannot install Heroku to your computer, you can use the command npx heroku.
+
+Test the deployed backend with a browser and Postman or VS Code REST client to ensure it works.
+
+PRO TIP: When you deploy your application to Heroku, it is worth it to at least in the beginning keep an eye on the logs of the heroku application AT ALL TIMES with the command heroku logs -t.
+
+The following is a log about one typical problem. Heroku cannot find application dependency express
+
+The reason is that the express package has not been installed with the npm install express command, so information about the dependency was not saved to the file package.json.
+
+Another typical problem is that the application is not configured to use the port set to environment variable PORT
+
+Create a README.md at the root of your repository, and add a link to your online application to it.
+
+## 3.11 phonebook full stack
+Generate a production build of your frontend, and add it to the internet application using the method introduced in this part.
+
+NB Make sure the directory build is not gitignored
+
+Also make sure that the frontend still works locally (in development mode when started with command npm start).
+
+If you have problems to get the app working make sure that your directory structure matches the one of the example app.
+
+## 3.12: Command-line database
+Create a cloud-based MongoDB database for the phonebook application with MongoDB Atlas.
+
+Create a mongo.js file in the project directory, that can be used for adding entries to the phonebook, and for listing all of the existing entries in the phonebook.
+
+NB: Do not include the password in the file that you commit and push to GitHub!
+
+The application should work as follows. You use the program by passing three command-line arguments (the first is the password), e.g.:
+```
+node mongo.js yourpassword Anna 040-1234556
+```
+As a result, the application will print:
+```
+added Anna number 040-1234556 to phonebook
+```
+The new entry to the phonebook will be saved to the database. Notice that if the name contains whitespace characters, it must be enclosed in quotes:
+```
+node mongo.js yourpassword "Arto Vihavainen" 045-1232456
+```
+If the password is the only parameter given to the program, meaning that it is invoked like this:
+```
+node mongo.js yourpassword
+```
+Then the program should display all of the entries in the phonebook:
+```
+phonebook:
+Anna 040-1234556
+Arto Vihavainen 045-1232456
+Ada Lovelace 040-1231236
+```
+You can get the command-line parameters from the process.argv variable.
+
+NB: do not close the connection in the wrong place. E.g. the following code will not work:
+```JavaScript
+Person
+  .find({})
+  .then(persons=> {
+    // ...
+  })
+
+mongoose.connection.close()
+```
+In the code above the mongoose.connection.close() command will get executed immediately after the Person.find operation is started. This means that the database connection will be closed immediately, and the execution will never get to the point where Person.find operation finishes and the callback function gets called.
+
+The correct place for closing the database connection is at the end of the callback function:
+```JavaScript
+Person
+  .find({})
+  .then(persons=> {
+    // ...
+    mongoose.connection.close()
+  })
+```
+NB: If you define a model with the name Person, mongoose will automatically name the associated collection as people.
+
+## 3.13: Phonebook database, step 1
+Change the fetching of all phonebook entries so that the data is fetched from the database.
+
+Verify that the frontend works after the changes have been made.
+
+In the following exercises, write all Mongoose-specific code into its own module, just like we did in the chapter Database configuration into its own module.
+
+## 3.14: Phonebook database, step 2
+Change the backend so that new numbers are saved to the database. Verify that your frontend still works after the changes.
+
+At this point, you can choose to simply allow users to create all phonebook entries. At this stage, the phonebook can have multiple entries for a person with the same name.

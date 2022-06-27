@@ -3,10 +3,11 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 const app = express();
-const Person = require('./models/person');
+const Person = require("./models/person");
 app.use(cors());
 app.use(express.static("build"));
 app.use(express.json());
+
 morgan.token("data", (req, res) => {
   return JSON.stringify(req.body);
 });
@@ -15,9 +16,9 @@ app.use(
 );
 
 app.get("/api/persons", (request, response) => {
-  Person.find({}).then(result => {
+  Person.find({}).then((result) => {
     response.json(result);
-  })
+  });
 });
 
 app.get("/info", (request, response) => {
@@ -29,22 +30,17 @@ app.get("/info", (request, response) => {
 });
 
 app.get("/api/persons/:id", (request, response) => {
-  const id = Number(request.params.id);
-  const person = persons.find((person) => person.id === id);
-
-  if (person) {
+  Person.findById(request.params.id).then((person) => {
     response.json(person);
-  } else {
-    response.status(404).send(`person not found.`).end();
-  }
+  });
 });
 
-app.delete("/api/persons/:id", (request, response) => {
-  const id = Number(request.params.id);
-  persons = persons.filter((note) => note.id !== id);
+// app.delete("/api/persons/:id", (request, response) => {
+//   const id = Number(request.params.id);
+//   persons = persons.filter((note) => note.id !== id);
 
-  response.status(204).send(`person has already been removed`).end();
-});
+//   response.status(204).send(`person has already been removed`).end();
+// });
 
 app.post("/api/persons/", (request, response) => {
   const body = request.body;
@@ -54,24 +50,12 @@ app.post("/api/persons/", (request, response) => {
     });
   }
 
-  if (
-    persons.find(
-      (person) => person.name.toLowerCase() === body.name.toLowerCase()
-    )
-  ) {
-    return response.status(400).json({
-      error: `person already exists in database`,
-    });
-  }
-
-  const person = {
-    id: Math.floor(Math.random() * 10000),
+  const person = new Person({
     name: body.name,
     number: body.number,
-  };
+  });
 
-  persons = persons.concat(person);
-  response.json(person);
+  person.save().then((savedPerson) => response.json(savedPerson));
 });
 
 const PORT = process.env.PORT || 3001;
