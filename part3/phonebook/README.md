@@ -196,3 +196,22 @@ Verify that the frontend works after making your changes.
 
 ## 3.18*: Phonebook database step 6
 Also update the handling of the api/persons/:id and info routes to use the database, and verify that they work directly with the browser, Postman, or VS Code REST client.
+
+## 3.19*: Phonebook database, step7
+Expand the validation so that the name stored in the database has to be at least three characters long.
+
+Expand the frontend so that it displays some form of error message when a validation error occurs. Error handling can be implemented by adding a catch block as shown below:
+```JavaScript
+personService
+    .create({ ... })
+    .then(createdPerson => {
+      // ...
+    })
+    .catch(error => {
+      // this is the way to access the error message
+      console.log(error.response.data)
+    })
+```
+You can display the default error message returned by Mongoose, even though they are not as readable as they could be.
+
+NB: On update operations, mongoose validators are off by default. Read the documentation to determine how to enable them.

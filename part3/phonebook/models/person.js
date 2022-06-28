@@ -1,28 +1,24 @@
-require("dotenv").config();
-
 const mongoose = require("mongoose");
-const url = process.env.MONGODB_URL;
 
-mongoose
-  .connect(url)
-  .then((response) => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((error) => {
-    console.log("Failed to connect to MongoDB: ", error.message);
-  });
+mongoose.connect(process.env.MONGODB_URL);
 
-const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+const personSchema = mongoose.Schema({
+  name: {
+    type: String,
+    minLength: 3,
+    required: true,
+  },
+  number: {
+    type: String,
+    required: true,
+  },
 });
 
-personSchema.set("toJSON", {
+personSchema.set('toJSON', {
   transform: (document, returnedObject) => {
-    returnedObject._id = returnedObject.toString();
-    delete returnedObject._id;
+    returnedObject._id = returnedObject._id.toString();
     delete returnedObject.__v;
   },
 });
 
-module.exports = mongoose.model("Person", personSchema);
+module.exports = mongoose.model('Person', personSchema);
