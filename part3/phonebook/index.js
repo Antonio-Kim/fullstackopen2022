@@ -6,7 +6,6 @@ const cors = require("cors");
 
 const app = express();
 const Person = require("./models/person");
-const { response } = require("express");
 app.use(express.static("build"));
 app.use(cors());
 app.use(express.json());
@@ -18,14 +17,15 @@ app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :data")
 );
 
-app.get(`/api/persons`, (request, response, next) => {
-  Person.find({}).then((result) => {
-    response.json(result);
-  })
-  .catch(error => next(error));
+app.get("/api/persons", (request, response, next) => {
+  Person.find({})
+    .then((result) => {
+      response.json(result);
+    })
+    .catch((error) => next(error));
 });
 
-app.post(`/api/persons`, (req, res, next) => {
+app.post("/api/persons", (req, res, next) => {
   const body = req.body;
 
   const person = {
@@ -37,8 +37,9 @@ app.post(`/api/persons`, (req, res, next) => {
     new: true,
     upsert: true,
     runValidators: true,
-  }).then((savedPerson) => res.json(savedPerson))
-  .catch(err => next(err));
+  })
+    .then((savedPerson) => res.json(savedPerson))
+    .catch((err) => next(err));
 });
 
 app.get("/api/persons/:id", (request, response) => {
@@ -78,7 +79,7 @@ app.get("/info", (req, res, next) => {
 });
 
 const UnknownEndpoint = (req, res) => {
-  res.status(404).json({ error: `unknown endpoint ` });
+  res.status(404).json({ error: "unknown endpoint" });
 };
 
 app.use(UnknownEndpoint);
@@ -86,10 +87,10 @@ app.use(UnknownEndpoint);
 const ErrorHandler = (error, req, res, next) => {
   console.log(error.message);
 
-  if (error.name === `CastError`) {
+  if (error.name === "CastError") {
     return res.status(404).json({ error: error.message });
-  } else if (error.name === `ValidationError`) {
-    return res.status(404).json({ error: error.message});
+  } else if (error.name === "ValidationError") {
+    return res.status(404).json({ error: error.message });
   }
 };
 
