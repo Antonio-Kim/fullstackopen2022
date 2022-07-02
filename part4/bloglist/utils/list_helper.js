@@ -8,7 +8,16 @@ const totalLikes = (blogs) => {
   }, 0);
 };
 
+const favoriteBlog = (blogs) => {
+  const result = blogs.reduce((a, b) => (a.likes > b.likes ? a : b), {});
+  delete result._id;
+  delete result.__v;
+  delete result.url;
+  return result;
+};
+
 module.exports = {
   dummy,
   totalLikes,
+  favoriteBlog,
 };

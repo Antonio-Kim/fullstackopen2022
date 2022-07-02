@@ -81,7 +81,7 @@ test('dummy returns one', () => {
 })
 ```
 
-## 4.4: helper functions and unit tests, step2
+## 4.4: helper functions and unit tests, step 2
 Define a new totalLikes function that receives a list of blog posts as a parameter. The function returns the total sum of likes in all of the blog posts.
 
 Write appropriate tests for the function. It's recommended to put the tests inside of a describe block, so that the test report output gets grouped nicely. Defining test inputs for the function can be done like this:
@@ -114,3 +114,18 @@ Another way of running a single test (or describe block) is to specify the name 
 ```
 npm test -- -t 'when list has only one blog, equals the likes of that'
 ```
+
+## 4.5*: helper functions and unit tests, step 3
+Define a new favoriteBlog function that receives a list of blogs as a parameter. The function finds out which blog has most likes. If there are many top favorites, it is enough to return one of them.
+
+The value returned by the function could be in the following format:
+```JavaScript
+{
+  title: "Canonical string reduction",
+  author: "Edsger W. Dijkstra",
+  likes: 12
+}
+```
+NB when you are comparing objects, the toEqual method is probably what you want to use, since the toBe tries to verify that the two values are the same value, and not just that they contain the same properties.
+
+Write the tests for this exercise inside of a new describe block. Do the same for the remaining exercises as well.
