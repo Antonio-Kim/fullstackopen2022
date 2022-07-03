@@ -130,7 +130,7 @@ NB when you are comparing objects, the toEqual method is probably what you want 
 
 Write the tests for this exercise inside of a new describe block. Do the same for the remaining exercises as well.
 
-## 4.6*: helper functions and unit tests, step4
+## 4.6*: helper functions and unit tests, step 4
 This and the next exercise are a little bit more challenging. Finishing these two exercises is not required in order to advance in the course material, so it may be a good idea to return to these once you're done going through the material for this part in its entirety.
 
 Finishing this exercise can be done without the use of additional libraries. However, this exercise is a great opportunity to learn how to use the Lodash library.
@@ -144,7 +144,7 @@ Define a function called mostBlogs that receives an array of blogs as a paramete
 ```
 If there are many top bloggers, then it is enough to return any one of them.
 
-## 4.7*: helper functions and unit tests, step5
+## 4.7*: helper functions and unit tests, step 5
 Define a function called mostLikes that receives an array of blogs as its parameter. The function returns the author, whose blog posts have the largest amount of likes. The return value also contains the total number of likes that the author has received:
 ```JavaScript
 {
@@ -153,3 +153,25 @@ Define a function called mostLikes that receives an array of blogs as its parame
 }
 ```
 If there are many top bloggers, then it is enough to show any one of them.
+
+## 4.8: Blog list tests, step 1
+Use the supertest package for writing a test that makes an HTTP GET request to the /api/blogs url. Verify that the blog list application returns the correct amount of blog posts in the JSON format.
+
+Once the test is finished, refactor the route handler to use the async/await syntax instead of promises.
+
+Notice that you will have to make similar changes to the code that were made in the material, like defining the test environment so that you can write tests that use their own separate database.
+
+One way to get rid of this is to run tests with option --forceExit:
+```JS
+{
+  // ..
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "lint": "eslint .",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
+  },
+  // ...
+}
+```
+NB: when you are writing your tests it is better to not execute all of your tests, only execute the ones you are working on.
