@@ -66,6 +66,15 @@ test("likes are missing from request", async () => {
   expect(lastBlog).toHaveProperty("likes", 0);
 });
 
+test("mising title and url will return 400 status code", async () => {
+  const newBlog = {
+    author: "Queens",
+    likes: 100,
+  };
+
+  await api.post("/api/blogs").send(newBlog).expect(400);
+});
+
 afterAll(() => {
   mongoose.connection.close();
 });
