@@ -22,10 +22,28 @@ test("correct amount of blog posts are returned", async () => {
 test("unique identifier property of the blog posts is named id", async () => {
   const response = await api.get("/api/blogs");
   const currentBlogs = response.body;
-  console.log(currentBlogs);
-  currentBlogs.forEach(blog => {
+  currentBlogs.forEach((blog) => {
     expect(blog.id).toBeDefined();
   });
+});
+
+test("able to add new blog post", async () => {
+  const newBlog = {
+    title: "Another one bites the dust",
+    author: "Queens",
+    url: "none",
+    likes: 100,
+  };
+
+  await api
+    .post("/api/blogs")
+    .send(newBlog)
+    .expect(201)
+    .expect("Content-Type", /application\/json/);
+  const response = await Blog.find({});
+  expect(response).toHaveLength(helper.blogs.length + 1);
+  const lastBlog = response[response.length - 1];
+  expect(lastBlog).toMatchObject(newBlog);
 });
 
 afterAll(() => {

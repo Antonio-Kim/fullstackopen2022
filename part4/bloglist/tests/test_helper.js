@@ -53,7 +53,7 @@ const blogs = [
 
 const blogsInDb = async () => {
   const blogs = await Blog.find({});
-  return blogs.map(r => r.content);
+  return blogs;
 };
 
 module.exports = {
