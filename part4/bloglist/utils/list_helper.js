@@ -37,9 +37,34 @@ const mostBlog = (blogs) => {
         author = authors;
       }
     }
-    return { "author": author, "blogs": max };
+    return { author: author, blogs: max };
   };
   return authorWithMostBlogs(authorsWithBlogs);
+};
+
+const mostLikes = (blogs) => {
+  const authorsWithLikes = blogs
+    .map((blog) => ({
+      author: blog.author,
+      likes: blog.likes,
+    }))
+    .reduce((a, lines) => {
+      a[lines.author] = a[lines.author] || 0;
+      a[lines.author] += lines.likes;
+      return a;
+    }, {});
+  const authorWithMostLikes = (blogs) => {
+    let likes = 0;
+    let author = "";
+    for (let authors in blogs) {
+      if (blogs[authors] > likes) {
+        likes = blogs[authors];
+        author = authors;
+      }
+    }
+    return { author: author, likes: likes };
+  };
+  return authorWithMostLikes(authorsWithLikes);
 };
 
 module.exports = {
@@ -47,4 +72,5 @@ module.exports = {
   totalLikes,
   favoriteBlog,
   mostBlog,
+  mostLikes,
 };
