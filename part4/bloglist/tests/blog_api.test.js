@@ -80,7 +80,7 @@ describe("POST methods", () => {
 });
 
 describe("DELETE methods", () => {
-  test.only("delete a single blog post resource", async () => {
+  test("delete a single blog post resource", async () => {
     const postsAtStart = await Blog.find({});
     const blogToDelete = postsAtStart[0];
 
@@ -91,6 +91,27 @@ describe("DELETE methods", () => {
 
     const content = blogsAtEnd.map((r) => r.title);
     expect(content).not.toContain(blogToDelete.title);
+  });
+});
+
+describe("PUT methods", () => {
+  test("update a single blog post resource", async () => {
+    const blogsAtStart = await Blog.find({});
+    const blogToUpdate = blogsAtStart[0];
+
+    const blog = {
+      title: "Bohemian Rhapsody",
+      author: "Queen",
+      url: "none",
+      likes: 0,
+    };
+
+    await api.put(`/api/blogs/${blogToUpdate.id}`).send(blog).expect(200);
+
+    const blogAtEnd = await Blog.find({});
+    expect(blogAtEnd[0]).toMatchObject(blog);
+
+    expect(blogAtEnd).toHaveLength(helper.blogs.length);
   });
 });
 
