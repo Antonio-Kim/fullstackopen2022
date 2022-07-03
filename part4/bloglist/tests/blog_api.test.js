@@ -40,10 +40,30 @@ test("able to add new blog post", async () => {
     .send(newBlog)
     .expect(201)
     .expect("Content-Type", /application\/json/);
+
   const response = await Blog.find({});
   expect(response).toHaveLength(helper.blogs.length + 1);
   const lastBlog = response[response.length - 1];
   expect(lastBlog).toMatchObject(newBlog);
+});
+
+test("likes are missing from request", async () => {
+  const newBlog = {
+    title: "Another one bites the dust",
+    author: "Queens",
+    url: "none",
+  };
+
+  await api
+    .post("/api/blogs")
+    .send(newBlog)
+    .expect(201)
+    .expect("Content-Type", /application\/json/);
+
+  const response = await Blog.find({});
+  expect(response).toHaveLength(helper.blogs.length + 1);
+  const lastBlog = response[response.length - 1];
+  expect(lastBlog).toHaveProperty("likes", 0);
 });
 
 afterAll(() => {
