@@ -242,7 +242,7 @@ The application mostly needs to update the amount of likes for a blog post. You 
 
 Implement tests for the functionality.
 
-## 4.15: bloglist expansion, step3
+## 4.15: bloglist expansion, step 3
 
 Implement a way to create new users by doing a HTTP POST-request to address api/users. Users have username, password and name.
 
@@ -257,3 +257,13 @@ npm uninstall bcrypt
 and install bcryptjs instead.
 
 Implement a way to see the details of all users by doing a suitable HTTP request.
+
+## 4.16\*: bloglist expansion, step 4
+
+Add a feature which adds the following restrictions to creating new users: Both username and password must be given. Both username and password must be at least 3 characters long. The username must be unique.
+
+The operation must respond with a suitable status code and some kind of an error message if invalid user is created.
+
+NB Do not test password restrictions with Mongoose validations. It is not a good idea because the password received by the backend and the password hash saved to the database are not the same thing. The password length should be validated in the controller like we did in part 3 before using Mongoose validation.
+
+Also, implement tests which check that invalid users are not created and invalid add user operation returns a suitable status code and error message.
