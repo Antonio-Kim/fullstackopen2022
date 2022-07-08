@@ -9,6 +9,7 @@ const middleware = require("./utils/middleware");
 const blogRouter = require("./controller/blogs");
 const usersRouter = require("./controller/users");
 const loginRouter = require("./controller/login");
+// const userExtractor = require("./utils/middleware").userExtractor;
 
 logger.info("connecting to MongoDB");
 
@@ -22,6 +23,7 @@ app.use(express.json());
 
 app.use(middleware.requestLogger);
 app.use(middleware.tokenExtractor);
+// app.use(middleware.userExtractor);
 
 app.use("/api/login", loginRouter);
 app.use("/api/blogs", blogRouter);
