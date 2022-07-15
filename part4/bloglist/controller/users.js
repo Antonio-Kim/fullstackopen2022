@@ -23,7 +23,6 @@ usersRouter.post("/", async (request, response, next) => {
   }
 
   if (password.length < 3 || username.length < 3) {
-    console.log(password.length);
     return response.status(400).json({
       error: "password or username requires at least three characters",
     });
