@@ -1,7 +1,6 @@
 const blogRouter = require("express").Router();
 const Blog = require("../models/blog");
-// const User = require("../models/user");
-// const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 const userExtractor = require("../utils/middleware").userExtractor;
 
 blogRouter.get("/", async (request, response, next) => {
@@ -18,14 +17,14 @@ blogRouter.get("/", async (request, response, next) => {
 
 blogRouter.post("/", userExtractor, async (request, response, next) => {
   const body = request.body;
-  const user = request.user;
+  const user = await User.findById(body.user_id.toString());
 
   const blogPost = new Blog({
     title: body.title,
     author: body.author,
     url: body.url,
     likes: body.likes,
-    user: user,
+    user: body.user_id,
   });
 
   try {
@@ -39,16 +38,16 @@ blogRouter.post("/", userExtractor, async (request, response, next) => {
 });
 
 blogRouter.delete("/:id", userExtractor, async (request, response, next) => {
-  const user = request.user;
+  const user = await User.findById(request.user.id);
   const blog = await Blog.findById(request.params.id);
 
-  // console.log(blog.user._id.toString() === user.id.toString());
-  if (blog.user._id.toString() !== user.id.toString()) {
-    return response.status(401).json({ error: "invalid action" });
-  }
-
   try {
+    if (blog.user._id.toString() !== user.id.toString()) {
+      return response.status(401).json({ error: "invalid action" });
+    }
+
     await Blog.findByIdAndRemove(request.params.id);
+    console.log(user.blogs);
     user.blogs = user.blogs.filter(
       (blog) => blog.toString() !== request.params.id
     );
@@ -59,7 +58,7 @@ blogRouter.delete("/:id", userExtractor, async (request, response, next) => {
   }
 });
 
-blogRouter.put("/:id", async (request, response, next) => {
+blogRouter.put("/:id", userExtractor, async (request, response, next) => {
   const body = await request.body;
 
   const blog = {
