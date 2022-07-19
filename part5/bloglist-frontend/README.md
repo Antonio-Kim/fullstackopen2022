@@ -54,3 +54,7 @@ if (user === null) {
   )
 }
 ```
+
+## 5.2: bloglist frontend, step2
+
+Make the login 'permanent' by using the local storage. Also implement a way to log out.
