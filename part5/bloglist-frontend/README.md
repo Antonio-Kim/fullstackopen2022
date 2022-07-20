@@ -55,6 +55,10 @@ if (user === null) {
 }
 ```
 
-## 5.2: bloglist frontend, step2
+## 5.2: bloglist frontend, step 2
 
 Make the login 'permanent' by using the local storage. Also implement a way to log out.
+
+## 5.3: bloglist frontend, step 3
+
+Expand your application to allow a logged-in user to add new blogs:
