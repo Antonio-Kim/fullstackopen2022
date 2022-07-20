@@ -62,3 +62,7 @@ Make the login 'permanent' by using the local storage. Also implement a way to l
 ## 5.3: bloglist frontend, step 3
 
 Expand your application to allow a logged-in user to add new blogs:
+
+## 5.4: bloglist frontend, step 4
+
+Implement notifications which inform the user about successful and unsuccessful operations at the top of the page. The notifications must be visible for a few seconds. It is not compulsory to add colors.

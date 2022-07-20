@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Blog from "./components/Blog";
+import Notification from "./components/Notification";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
-  // const [errorMessage, setErrorMessage] = useState(null);
+  const [notification, setNotification] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -41,10 +42,11 @@ const App = () => {
       window.localStorage.setItem("loggedBlogappUser", JSON.stringify(user));
 
       setUser(user);
+      notify("Successfully logged in", "info");
       setUsername("");
       setPassword("");
     } catch (exception) {
-      console.log("error");
+      notify("Wrong username or password", "alert");
     }
   };
 
@@ -52,16 +54,25 @@ const App = () => {
     event.preventDefault();
     try {
       window.localStorage.removeItem("loggedBlogappUser");
+      notify("Successfully logged out", "info");
       setUser(null);
     } catch (exception) {
-      console.log("error on logout");
+      notify("Failed to log out", "alert");
     }
+  };
+
+  const notify = (message, type = "info") => {
+    setNotification({ message, type });
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
   };
 
   if (user === null) {
     return (
       <div>
         <h2>Log in to application</h2>
+        <Notification notification={notification} />
         <form onSubmit={handleLogin}>
           <div>
             username
@@ -97,16 +108,22 @@ const App = () => {
     };
 
     blogService.create(blogObject).then((returnedBlog) => {
-      setBlogs(blogs.concat(returnedBlog));
-      setTitle("");
-      setAuthor("");
-      setUrl("");
+      try {
+        setBlogs(blogs.concat(returnedBlog));
+        notify(`${blogObject.title} by ${blogObject.author} was added`, "info");
+        setTitle("");
+        setAuthor("");
+        setUrl("");
+      } catch (exception) {
+        notify("Failed to add blog - jwt is not provided", "alert");
+      }
     });
   };
 
   return (
     <div>
       <h2>blogs</h2>
+      <Notification notification={notification} />
       <p>
         {user.name} logged in
         <button onClick={handleLogout}>logout</button>
