@@ -13,9 +13,6 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const [newTitle, setTitle] = useState("");
-  const [newAuthor, setAuthor] = useState("");
-  const [newUrl, setUrl] = useState("");
 
   useEffect(() => {
     blogService.getAll().then((blogs) => {
@@ -101,22 +98,11 @@ const App = () => {
     );
   }
 
-  const addBlog = (event) => {
-    event.preventDefault();
-    const blogObject = {
-      title: newTitle,
-      author: newAuthor,
-      url: newUrl,
-      user_id: user.user_id,
-    };
-
+  const addBlog = (blogObject) => {
     blogService.create(blogObject).then((returnedBlog) => {
       try {
         setBlogs(blogs.concat(returnedBlog));
         notify(`${blogObject.title} by ${blogObject.author} was added`, "info");
-        setTitle("");
-        setAuthor("");
-        setUrl("");
       } catch (exception) {
         notify("Failed to add blog - jwt is not provided", "alert");
       }
@@ -132,15 +118,7 @@ const App = () => {
         <button onClick={handleLogout}>logout</button>
       </p>
       <Togglable buttonLabel="new note">
-        <PostForm
-          addBlog={addBlog}
-          newTitle={newTitle}
-          setTitle={setTitle}
-          newAuthor={newAuthor}
-          setAuthor={setAuthor}
-          newUrl={newUrl}
-          setUrl={setUrl}
-        />
+        <PostForm createBlog={addBlog} user={user} />
       </Togglable>
       <div>
         {blogs.map((blog) => (

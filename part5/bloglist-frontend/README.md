@@ -70,3 +70,9 @@ Implement notifications which inform the user about successful and unsuccessful 
 ## 5.5 Blog list frontend, step 5
 
 Change the form for creating blog posts so that it is only displayed when appropriate. Use functionality similar to what was shown earlier in this part of the course material. If you wish to do so, you can use the Togglable component defined in part 5. By default the form is not visible, and it expands when button create new blog is clicked.
+
+## 5.6 Blog list frontend, step 6
+
+Separate the form for creating a new blog into its own component (if you have not already done so), and move all the states required for creating a new blog to this component.
+
+The component must work like the NoteForm component from the material of this part.

@@ -1,12 +1,24 @@
-const PostForm = ({
-  addBlog,
-  newTitle,
-  setTitle,
-  newAuthor,
-  setAuthor,
-  newUrl,
-  setUrl,
-}) => {
+import { useState } from "react";
+
+const PostForm = ({ createBlog, user }) => {
+  const [newTitle, setTitle] = useState("");
+  const [newAuthor, setAuthor] = useState("");
+  const [newUrl, setUrl] = useState("");
+
+  const addBlog = (event) => {
+    event.preventDefault();
+    createBlog({
+      title: newTitle,
+      author: newAuthor,
+      url: newUrl,
+      user_id: user.user_id,
+    });
+
+    setTitle("");
+    setAuthor("");
+    setUrl("");
+  };
+
   return (
     <div>
       <h2>create new</h2>
