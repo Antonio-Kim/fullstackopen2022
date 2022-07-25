@@ -66,3 +66,7 @@ Expand your application to allow a logged-in user to add new blogs:
 ## 5.4: bloglist frontend, step 4
 
 Implement notifications which inform the user about successful and unsuccessful operations at the top of the page. The notifications must be visible for a few seconds. It is not compulsory to add colors.
+
+## 5.5 Blog list frontend, step 5
+
+Change the form for creating blog posts so that it is only displayed when appropriate. Use functionality similar to what was shown earlier in this part of the course material. If you wish to do so, you can use the Togglable component defined in part 5. By default the form is not visible, and it expands when button create new blog is clicked.

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Blog from "./components/Blog";
 import Notification from "./components/Notification";
+import PostForm from "./components/PostForm";
+import Togglable from "./components/Togglable";
+
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 
@@ -128,36 +131,17 @@ const App = () => {
         {user.name} logged in
         <button onClick={handleLogout}>logout</button>
       </p>
-      <div>
-        <h2>create new</h2>
-        <form onSubmit={addBlog}>
-          <div>
-            title:
-            <input
-              type="text"
-              value={newTitle}
-              onChange={({ target }) => setTitle(target.value)}
-            ></input>
-          </div>
-          <div>
-            author:
-            <input
-              type="text"
-              value={newAuthor}
-              onChange={({ target }) => setAuthor(target.value)}
-            ></input>
-          </div>
-          <div>
-            url:
-            <input
-              type="text"
-              value={newUrl}
-              onChange={({ target }) => setUrl(target.value)}
-            ></input>
-          </div>
-          <button type="submit">create</button>
-        </form>
-      </div>
+      <Togglable buttonLabel="new note">
+        <PostForm
+          addBlog={addBlog}
+          newTitle={newTitle}
+          setTitle={setTitle}
+          newAuthor={newAuthor}
+          setAuthor={setAuthor}
+          newUrl={newUrl}
+          setUrl={setUrl}
+        />
+      </Togglable>
       <div>
         {blogs.map((blog) => (
           <Blog key={blog.id} blog={blog} />
