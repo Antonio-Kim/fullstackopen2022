@@ -76,3 +76,37 @@ Change the form for creating blog posts so that it is only displayed when approp
 Separate the form for creating a new blog into its own component (if you have not already done so), and move all the states required for creating a new blog to this component.
 
 The component must work like the NoteForm component from the material of this part.
+
+## 5.7\* Blog list frontend, step7
+
+Let's add a button to each blog, which controls whether all of the details about the blog are shown or not.
+
+Full details of the blog open when the button is clicked, and the details are hidden when the button is clicked again.
+
+At this point the like button does not need to do anything.
+
+The application shown in the picture has a bit of additional CSS to improve its appearance.
+
+It is easy to add styles to the application as shown in part 2 using inline styles:
+
+```JS
+const Blog = ({ blog }) => {
+  const blogStyle = {
+    paddingTop: 10,
+    paddingLeft: 2,
+    border: 'solid',
+    borderWidth: 1,
+    marginBottom: 5
+  }
+
+  return (
+    <div style={blogStyle}>
+      <div>
+        {blog.title} {blog.author}
+      </div>
+      // ...
+  </div>
+)}
+```
+
+NB: even though the functionality implemented in this part is almost identical to the functionality provided by the Togglable component, the component can not be used directly to achieve the desired behavior. The easiest solution will be to add state to the blog post that controls the displayed form of the blog post.
