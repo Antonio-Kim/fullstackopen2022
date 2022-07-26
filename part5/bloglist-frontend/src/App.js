@@ -24,11 +24,18 @@ const App = () => {
     const loggedUserJSON = window.localStorage.getItem("loggedBlogappUser");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      console.log(user);
       setUser(user);
       blogService.setToken(user.token);
     }
   }, []);
+
+  const updateBlog = (id, blogObject) => {
+    blogService
+      .update(id, blogObject)
+      .then((response) =>
+        setBlogs(blogs.map((blog) => (blog.id === id ? response : blog)))
+      );
+  };
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -122,7 +129,7 @@ const App = () => {
       </Togglable>
       <div>
         {blogs.map((blog) => (
-          <Blog key={blog.id} blog={blog} />
+          <Blog key={blog.id} newBlog={updateBlog} blog={blog} />
         ))}
       </div>
     </div>

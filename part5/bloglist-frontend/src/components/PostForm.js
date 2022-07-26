@@ -7,6 +7,7 @@ const PostForm = ({ createBlog, user }) => {
 
   const addBlog = (event) => {
     event.preventDefault();
+
     createBlog({
       title: newTitle,
       author: newAuthor,
