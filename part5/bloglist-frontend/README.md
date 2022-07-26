@@ -111,7 +111,7 @@ const Blog = ({ blog }) => {
 
 NB: even though the functionality implemented in this part is almost identical to the functionality provided by the Togglable component, the component can not be used directly to achieve the desired behavior. The easiest solution will be to add state to the blog post that controls the displayed form of the blog post.
 
-## 5.8: Blog list frontend, step8
+## 5.8: Blog list frontend, step 8
 
 Implement the functionality for the like button. Likes are increased by making an HTTP PUT request to the unique address of the blog post in the backend.
 
@@ -147,3 +147,7 @@ You would have to make an HTTP PUT request to the address /api/blogs/5a43fde2cbd
 Backend has to be updated too to handle the user reference.
 
 One last warning: if you notice that you are using async/await and the then-method in the same code, it is almost certain that you are doing something wrong. Stick to using one or the other, and never use both at the same time "just in case".
+
+## 5.9: Blog list frontend, step 9
+
+Modify the application to list the blog posts by the number of likes. Sorting the blog posts can be done with the array sort method.
