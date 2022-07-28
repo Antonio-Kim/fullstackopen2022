@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Blog = ({ blog, newBlog }) => {
+const Blog = ({ blog, newBlog, removeBlog }) => {
   const [visible, setVisible] = useState(false);
 
   const handleLikes = async () => {
@@ -35,6 +35,7 @@ const Blog = ({ blog, newBlog }) => {
           likes {blog.likes} <button onClick={handleLikes}>like</button>
         </div>
         <div>{blog.author}</div>
+        <button onClick={() => removeBlog(blog.id)}>remove</button>
       </div>
     </div>
   );

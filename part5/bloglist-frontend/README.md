@@ -151,3 +151,11 @@ One last warning: if you notice that you are using async/await and the then-meth
 ## 5.9: Blog list frontend, step 9
 
 Modify the application to list the blog posts by the number of likes. Sorting the blog posts can be done with the array sort method.
+
+## 5.10: Blog list frontend, step 10
+
+Add a new button for deleting blog posts. Also implement the logic for deleting blog posts in the frontend.
+
+The confirmation dialog for deleting a blog post is easy to implement with the window.confirm function.
+
+Show the button for deleting a blog post only if the blog post was added by the user.

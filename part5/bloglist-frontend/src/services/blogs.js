@@ -30,5 +30,13 @@ const update = async (id, newObject) => {
   return response.data;
 };
 
+const remove = (id) => {
+  const config = {
+    headers: { authorization: token },
+  };
+
+  return axios.delete(`${baseUrl}/${id}`, config);
+};
+
 // eslint-disable-next-line
-export default { getAll, create, setToken, update };
+export default { getAll, create, setToken, update, remove };

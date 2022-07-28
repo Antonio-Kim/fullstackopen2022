@@ -116,6 +116,18 @@ const App = () => {
     });
   };
 
+  const deleteBlog = (id) => {
+    const toDelete = blogs.find((blog) => blog.id === id);
+    blogService.remove(toDelete.id);
+    const ok = window.confirm(`Remove ${toDelete.title}?`);
+    if (ok) {
+      blogService.remove(id).then(() => {
+        setBlogs(blogs.filter((blog) => blog.id !== id));
+        notify(`Deleted ${toDelete.title}`);
+      });
+    }
+  };
+
   return (
     <div>
       <h2>blogs</h2>
@@ -131,7 +143,12 @@ const App = () => {
         {blogs
           .sort((a, b) => b.likes - a.likes)
           .map((blog) => (
-            <Blog key={blog.id} newBlog={updateBlog} blog={blog} />
+            <Blog
+              key={blog.id}
+              newBlog={updateBlog}
+              removeBlog={deleteBlog}
+              blog={blog}
+            />
           ))}
       </div>
     </div>
