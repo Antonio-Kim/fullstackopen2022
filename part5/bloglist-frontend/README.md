@@ -159,3 +159,7 @@ Add a new button for deleting blog posts. Also implement the logic for deleting 
 The confirmation dialog for deleting a blog post is easy to implement with the window.confirm function.
 
 Show the button for deleting a blog post only if the blog post was added by the user.
+
+## 5.11: Blog list frontend, step 11
+
+Define PropTypes for one of the components of your application.
