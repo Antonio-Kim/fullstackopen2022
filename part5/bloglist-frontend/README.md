@@ -163,3 +163,11 @@ Show the button for deleting a blog post only if the blog post was added by the 
 ## 5.11: Blog list frontend, step 11
 
 Define PropTypes for one of the components of your application.
+
+## 5.12: Blog list frontend, step 12
+
+Add ESlint to the project. Define the configuration according to your liking. Fix all of the linter errors.
+
+Create-react-app has installed ESlint to the project by default, so all that's left for you to do is to define your desired configuration in the .eslintrc.js file.
+
+NB: do not run the eslint --init command. It will install the latest version of ESlint that is not compatible with the configuration file created by create-react-app!
