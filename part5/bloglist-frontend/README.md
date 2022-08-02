@@ -200,3 +200,35 @@ describe('Blog app', function() {
   })
 })
 ```
+
+## 5.18: bloglist end to end testing, step 2
+
+Make tests for logging in. Test both successful and unsuccessful login attempts. Make a new user in the beforeEach block for the tests.
+
+The test structure extends like so:
+
+```JS
+describe('Blog app', function() {
+  beforeEach(function() {
+    cy.request('POST', 'http://localhost:3003/api/testing/reset')
+    // create here a user to backend
+    cy.visit('http://localhost:3000')
+  })
+
+  it('Login form is shown', function() {
+    // ...
+  })
+
+  describe('Login',function() {
+    it('succeeds with correct credentials', function() {
+      // ...
+    })
+
+    it('fails with wrong credentials', function() {
+      // ...
+    })
+  })
+})
+```
+
+Optional bonus exercise: Check that the notification shown with unsuccessful login is displayed red.
