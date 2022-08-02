@@ -181,3 +181,22 @@ Add CSS-classes to the component to help the testing as necessary.
 ## 5.14: Blog list tests, step2
 
 Make a test which checks that the blog's url and number of likes are shown when the button controlling the shown details has been clicked.
+
+## 5.17: bloglist end to end testing, step 1
+
+Configure Cypress to your project. Make a test for checking that the application displays the login form by default.
+
+The structure of the test must be as follows:
+
+```JS
+describe('Blog app', function() {
+  beforeEach(function() {
+    cy.request('POST', 'http://localhost:3003/api/testing/reset')
+    cy.visit('http://localhost:3000')
+  })
+
+  it('Login form is shown', function() {
+    // ...
+  })
+})
+```

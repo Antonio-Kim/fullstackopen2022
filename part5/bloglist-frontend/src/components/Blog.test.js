@@ -27,9 +27,20 @@ describe("<Blog />", () => {
     const button = screen.getByText("view");
     await user.click(button);
 
-    screen.debug();
-
     const div = container.querySelector(".blogContent");
     expect(div).not.toHaveStyle("display: none");
+  });
+
+  test.skip("clicking the likes button call twice", async () => {
+    const addBlog = jest.fn();
+    const user = userEvent.setup();
+
+    render(<Blog blog={blog} newBlog={addBlog} />);
+    screen.debug();
+
+    const like = container.querySelector(".like");
+    await user.click(like);
+
+    expect(addBlog.mock.calls).toHaveLength(1);
   });
 });
