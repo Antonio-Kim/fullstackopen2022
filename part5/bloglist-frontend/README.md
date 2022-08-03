@@ -265,3 +265,16 @@ Make a test which checks that users can like a blog.
 Make a test for ensuring that the user who created a blog can delete it.
 
 Optional bonus exercise: also check that other users cannot delete the blog.
+
+## 5.22: bloglist end to end testing, step6
+
+Make a test which checks that the blogs are ordered according to likes with the blog with the most likes being first.
+
+This exercise is quite a bit trickier than the previous ones. One solution is to add a certain class for the element which wraps the blog's content and use the eq method to get the blog element in a specific index:
+
+```JS
+cy.get('.blog').eq(0).should('contain', 'The title with the most likes')
+cy.get('.blog').eq(1).should('contain', 'The title with the second most likes')
+```
+
+Note that you might end up having problems if you click a like button many times in row. It might be that cypress does the clicking so fast that it does not have time to update the app state in between the clicks. One remedy for this is to wait for the number of likes to update in between all clicks.

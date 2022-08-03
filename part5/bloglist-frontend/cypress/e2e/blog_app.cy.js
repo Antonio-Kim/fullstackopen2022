@@ -76,7 +76,7 @@ describe("Blog app", function () {
       cy.contains("likes 1");
     });
 
-    it.only("user can delete a blog", function () {
+    it("user can delete a blog", function () {
       cy.contains("create new blog").click();
 
       cy.get("#form-title").type("another test bites the dust");
@@ -86,6 +86,33 @@ describe("Blog app", function () {
 
       cy.contains("view").click();
       cy.contains("remove", { timeout: 30000 }).click();
+    });
+
+    it("sort the blog based on number of likes", function () {
+      cy.contains("create new blog").click();
+
+      cy.get("#form-title").type("The title with the second most likes");
+      cy.get("#form-author").type("me");
+      cy.get("#form-url").type("www.example.com");
+      cy.get("#create-button").click();
+      cy.contains("view").click();
+
+      cy.get("#form-title").type("The title with the most likes");
+      cy.get("#form-author").type("me");
+      cy.get("#form-url").type("www.example.com");
+      cy.get("#create-button").click();
+      cy.contains("view").click();
+
+      cy.get(".like").then((buttons) => {
+        cy.wrap(buttons[0]).click();
+        cy.wrap(buttons[1]).click();
+        cy.wrap(buttons[1]).click();
+      });
+
+      cy.get(".blog").eq(0).should("contain", "The title with the most likes");
+      cy.get(".blog")
+        .eq(1)
+        .should("contain", "The title with the second most likes");
     });
   });
 });
