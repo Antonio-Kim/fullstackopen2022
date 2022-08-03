@@ -62,7 +62,7 @@ describe("Blog app", function () {
       cy.contains("another test bites the dust");
     });
 
-    it.only("user can like a blog", function () {
+    it("user can like a blog", function () {
       cy.contains("create new blog").click();
 
       cy.get("#form-title").type("another test bites the dust");
@@ -74,6 +74,18 @@ describe("Blog app", function () {
       cy.get(".like").click();
 
       cy.contains("likes 1");
+    });
+
+    it.only("user can delete a blog", function () {
+      cy.contains("create new blog").click();
+
+      cy.get("#form-title").type("another test bites the dust");
+      cy.get("#form-author").type("me");
+      cy.get("#form-url").type("www.example.com");
+      cy.get("#create-button").click();
+
+      cy.contains("view").click();
+      cy.contains("remove", { timeout: 30000 }).click();
     });
   });
 });
