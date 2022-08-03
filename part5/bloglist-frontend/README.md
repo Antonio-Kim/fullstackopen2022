@@ -232,3 +232,26 @@ describe('Blog app', function() {
 ```
 
 Optional bonus exercise: Check that the notification shown with unsuccessful login is displayed red.
+
+## 5.19: bloglist end to end testing, step 3
+
+Make a test which checks that a logged-in user can create a new blog. The structure of the test could be as follows:
+
+```JS
+describe('Blog app', function() {
+  // ...
+
+  describe('When logged in', function() {
+    beforeEach(function() {
+      // log in user here
+    })
+
+    it('A blog can be created', function() {
+      // ...
+    })
+  })
+
+})
+```
+
+The test has to ensure that a new blog is added to the list of all blogs.
