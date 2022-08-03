@@ -38,7 +38,9 @@ const Blog = ({ blog, newBlog, removeBlog }) => {
           </button>
         </div>
         <div>{blog.author}</div>
-        <button onClick={() => removeBlog(blog.id)}>remove</button>
+        <button id="delete" onClick={() => removeBlog(blog.id)}>
+          remove
+        </button>
       </div>
     </div>
   );
