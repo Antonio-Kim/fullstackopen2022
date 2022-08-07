@@ -1,6 +1,6 @@
 # FullStack Open Part 6 - Unicafe Redux
 
-## 6.1: unicafe revisited, step1
+## 6.1: unicafe revisited, step 1
 
 Before implementing the functionality of the UI, let's implement the functionality required by the store.
 
@@ -87,3 +87,9 @@ describe('unicafe reducer', () => {
 In the tests, make sure that the reducer is an immutable function with the deep-freeze-library. Ensure that the provided first test passes, because Redux expects that the reducer returns a sensible original state when it is called so that the first parameter state, which represents the previous state, is undefined.
 
 Start by expanding the reducer so that both tests pass. Then add the rest of the tests, and finally the functionality which they are testing.
+
+## 6.2: unicafe revisited, step 2
+
+Now implement the actual functionality of the application.
+
+Note that since all the code is in the file index.js and you might need to manually reload the page after each change since the automatic reloading of the browser content does not always work for that file!
