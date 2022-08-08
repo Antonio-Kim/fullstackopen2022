@@ -19,6 +19,24 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
+export const createQuote = (quote) => {
+  return {
+    type: "NEW_QUOTE",
+    data: {
+      content: quote,
+      id: getId(),
+      votes: 0,
+    },
+  };
+};
+
+export const addVote = (id) => {
+  return {
+    type: "VOTE",
+    data: { id },
+  };
+};
+
 const reducer = (state = initialState, action) => {
   switch(action.type) {
     case "VOTE":
