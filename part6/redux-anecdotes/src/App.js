@@ -1,37 +1,53 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
+
+const getId = () => (100000 * Math.random()).toFixed(0);
 
 const App = () => {
-  const anecdotes = useSelector(state => state)
-  const dispatch = useDispatch()
+  const anecdotes = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   const vote = (id) => {
     dispatch({
       type: "VOTE",
-      id: id
+      data: { id },
+    });
+  };
+
+  const addQuote = (event) => {
+    event.preventDefault();
+    const quote = event.target.quote.value;
+    event.target.quote.value = "";
+    dispatch({
+      type: "NEW_QUOTE",
+      data: {
+        content: quote,
+        id: getId(),
+        votes: 0
+      }
     })
   }
 
   return (
     <div>
       <h2>Anecdotes</h2>
-      {anecdotes.map(anecdote =>
+      {anecdotes.map((anecdote) => (
         <div key={anecdote.id}>
-          <div>
-            {anecdote.content}
-          </div>
+          <div>{anecdote.content}</div>
           <div>
             has {anecdote.votes}
             <button onClick={() => vote(anecdote.id)}>vote</button>
           </div>
         </div>
-      )}
+      ))}
       <h2>create new</h2>
-      <form>
-        <div><input /></div>
-        <button>create</button>
+      <form onSubmit={addQuote}>
+        <div>
+          <input name="quote" />
+        </div>
+        <button type="submit">create</button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
