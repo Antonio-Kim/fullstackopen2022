@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
 import App from "./App";
-import anecdotesReducer from "./reducers/store";
+import anecdotesReducer from "./reducers/anecdoteReducer";
 
 const store = configureStore({
   reducer: {
