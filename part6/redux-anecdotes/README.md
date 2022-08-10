@@ -44,3 +44,7 @@ const App = () => {
 
 export default App
 ```
+
+## 6.9 Better anecdotes, step 7
+
+Install Redux Toolkit for the project. Move the Redux store creation into its own file store.js and use Redux Toolkit's configureStore to create the store. Also, start using Redux DevTools to debug the application's state easier.
