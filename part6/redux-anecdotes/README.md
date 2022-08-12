@@ -99,3 +99,30 @@ The application does not have to use the Notification component in an intelligen
 Extend the application so that it uses the Notification component to display a message for five seconds when the user votes for an anecdote or creates a new anecdote
 
 It's recommended to create separate action creators for setting and removing notifications.
+
+## 6.12\* Better anecdotes, step 10
+
+Implement filtering for the anecdotes that are displayed to the user.
+
+Store the state of the filter in the redux store. It is recommended to create a new reducer and action creators for this purpose. Implement the reducer and action creators using the Redux Toolkit's createSlice function.
+
+Create a new Filter component for displaying the filter. You can use the following code as a template for the component:
+
+```JS
+const Filter = () => {
+  const handleChange = (event) => {
+    // input-field value is in variable event.target.value
+  }
+  const style = {
+    marginBottom: 10
+  }
+
+  return (
+    <div style={style}>
+      filter <input onChange={handleChange} />
+    </div>
+  )
+}
+```
+
+export default Filter

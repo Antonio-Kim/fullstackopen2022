@@ -4,7 +4,11 @@ import { showMessage } from "../reducers/notificationReducer";
 
 const AnecdoteList = () => {
   const anecdotes = useSelector((state) => state.anecdotes);
-  const newAnecdotes = [...anecdotes];
+  const searchWord = useSelector((state) => state.filter);
+  const anecdotesToShow = anecdotes.filter((anecdote) =>
+    anecdote.content.toLowerCase().includes(searchWord.toLowerCase())
+  );
+  const newAnecdotes = [...anecdotesToShow];
   const dispatch = useDispatch();
 
   const vote = (id) => {
