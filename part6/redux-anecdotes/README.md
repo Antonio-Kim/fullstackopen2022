@@ -123,6 +123,10 @@ const Filter = () => {
     </div>
   )
 }
-```
 
 export default Filter
+```
+
+## 6.13 Anecdotes and the backend, step 1
+
+When the application launches, fetch the anecdotes from the backend implemented using json-server.

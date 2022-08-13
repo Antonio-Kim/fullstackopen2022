@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import initialState, { getId } from "./store";
+import { getId } from "./store";
 
 const anecdoteSlice = createSlice({
   name: "anecdotes",
-  initialState,
+  initialState: [],
   reducers: {
     addVote(state, action) {
       const id = action.payload;
@@ -22,8 +22,15 @@ const anecdoteSlice = createSlice({
         votes: 0,
       });
     },
+    appendAnecdotes(state, action) {
+      state.push(action.payload);
+    },
+    setAnecdotes(state, action) {
+      return action.payload;
+    },
   },
 });
 
-export const { addVote, createQuote } = anecdoteSlice.actions;
+export const { addVote, createQuote, appendAnecdotes, setAnecdotes } =
+  anecdoteSlice.actions;
 export default anecdoteSlice.reducer;
