@@ -16,11 +16,7 @@ const anecdoteSlice = createSlice({
     },
     createQuote(state, action) {
       const content = action.payload;
-      state.push({
-        content,
-        id: getId(),
-        votes: 0,
-      });
+      state.push(content);
     },
     appendAnecdotes(state, action) {
       state.push(action.payload);
