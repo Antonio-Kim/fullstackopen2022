@@ -138,3 +138,7 @@ Modify the creation of new anecdotes, so that the anecdotes are stored in the ba
 ## 6.15 Anecdotes and the backend, step 3
 
 Modify the initialization of Redux store to happen using asynchronous action creators, which are made possible by the Redux Thunk library.
+
+## 6.16 Anecdotes and the backend, step 4
+
+Also modify the creation of a new anecdote to happen using asynchronous action creators, made possible by the Redux Thunk library.
