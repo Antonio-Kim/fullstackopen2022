@@ -41,5 +41,12 @@ export const createQuote = (content) => {
   };
 };
 
+export const increaseVote = (id, content) => {
+  return async (dispatch) => {
+    await anecdoteService.updateVote(id, content);
+    dispatch(addVote(id));
+  };
+};
+
 export const { addVote, appendAnecdotes, setAnecdotes } = anecdoteSlice.actions;
 export default anecdoteSlice.reducer;

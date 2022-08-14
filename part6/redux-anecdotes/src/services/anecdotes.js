@@ -1,7 +1,8 @@
 import axios from "axios";
-import { getId } from "../reducers/store";
 
 const baseUrl = "http://localhost:3001/anecdotes";
+
+const getId = () => (100000 * Math.random()).toFixed(0);
 
 const getAll = async () => {
   const response = await axios.get(baseUrl);
@@ -14,5 +15,10 @@ const createNew = async (content) => {
   return response.data;
 };
 
+const updateVote = async (id, content) => {
+  const response = await axios.put(`${baseUrl}/${id}`, content);
+  return response.data;
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, createNew };
+export default { getAll, createNew, updateVote };
