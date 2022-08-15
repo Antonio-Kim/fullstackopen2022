@@ -1,16 +1,14 @@
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { createQuote } from "../reducers/anecdoteReducer";
 import { showNotification } from "../reducers/notificationReducer";
 
-const AnecdoteForm = () => {
-  const dispatch = useDispatch();
-
+const AnecdoteForm = (props) => {
   const addQuote = async (event) => {
     event.preventDefault();
     const quote = event.target.quote.value;
     event.target.quote.value = "";
-    dispatch(createQuote(quote));
-    dispatch(showNotification(`you added '${quote}'`, 5));
+    props.createQuote(quote);
+    props.showNotification(`you added '${quote}'`, 5);
   };
 
   return (
@@ -26,4 +24,11 @@ const AnecdoteForm = () => {
   );
 };
 
-export default AnecdoteForm;
+const mapDispatchToProps = {
+  createQuote,
+  showNotification,
+};
+
+const ConnectedAnecdoteForm = connect(null, mapDispatchToProps)(AnecdoteForm);
+
+export default ConnectedAnecdoteForm;

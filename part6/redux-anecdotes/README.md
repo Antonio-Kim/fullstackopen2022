@@ -173,3 +173,7 @@ Implement the use of this improved notification in your application.
 The redux store is currently being accessed by the components through the useSelector and useDispatch hooks.
 
 Modify the Notification component so that it uses the connect function instead of the hooks.
+
+## 6.20 anecdotes and connect, step 2
+
+Do the same for the Filter and AnecdoteForm components.
