@@ -167,3 +167,9 @@ dispatch(setNotification(`you voted '${anecdote.content}'`, 10))
 The first parameter is the text to be rendered and the second parameter is the time to display the notification given in seconds.
 
 Implement the use of this improved notification in your application.
+
+## 6.19 anecdotes and connect, step 1
+
+The redux store is currently being accessed by the components through the useSelector and useDispatch hooks.
+
+Modify the Notification component so that it uses the connect function instead of the hooks.
