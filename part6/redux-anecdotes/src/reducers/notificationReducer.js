@@ -11,10 +11,13 @@ const notificationSlice = createSlice({
   },
 });
 
+let timeoutID = 0;
+
 export const showNotification = (message, time) => {
   return async (dispatch) => {
+    clearTimeout(timeoutID);
+    timeoutID = setTimeout(() => dispatch(showMessage("")), 1000 * time);
     dispatch(showMessage(message));
-    setTimeout(() => dispatch(showMessage("")), 1000 * time);
   };
 };
 
