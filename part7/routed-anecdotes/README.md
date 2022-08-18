@@ -14,3 +14,46 @@ Implement a view for showing a single anecdote. Navigating to the page showing t
 The default functionality of the creation form is quite confusing, because nothing seems to be happening after creating a new anecdote using the form.
 
 Improve the functionality such that after creating a new anecdote the application transitions automatically to showing the view for all anecdotes and the user is shown a notification informing them of this successful creation for the next five seconds
+
+## 7.4: anecdotes and hooks step1
+
+Simplify the anecdote creation form of your application with the useField custom hook we defined earlier.
+
+One natural place to save the custom hooks of your application is in the /src/hooks/index.js file.
+
+If you use the named export instead of the default export:
+
+```JS
+import { useState } from 'react'
+
+export const useField = (type) => {
+  const [value, setValue] = useState('')
+
+  const onChange = (event) => {
+    setValue(event.target.value)
+  }
+
+  return {
+    type,
+    value,
+    onChange
+  }
+}
+
+// modules can have several named exports
+export const useAnotherHook = () => {
+  // ...
+}
+```
+
+Then importing happens in the following way:
+
+```JS
+import  { useField } from './hooks'
+
+const App = () => {
+  // ...
+  const username = useField('text')
+  // ...
+}
+```
