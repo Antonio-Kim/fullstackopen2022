@@ -15,7 +15,7 @@ The default functionality of the creation form is quite confusing, because nothi
 
 Improve the functionality such that after creating a new anecdote the application transitions automatically to showing the view for all anecdotes and the user is shown a notification informing them of this successful creation for the next five seconds
 
-## 7.4: anecdotes and hooks step1
+## 7.4: anecdotes and hooks step 1
 
 Simplify the anecdote creation form of your application with the useField custom hook we defined earlier.
 
@@ -56,4 +56,14 @@ const App = () => {
   const username = useField('text')
   // ...
 }
+```
+
+## 7.5: anecdotes and hooks step 2
+
+Add a button to the form that you can use to clear all the input fields.Expand the functionality of the useField hook so that it offers a new reset operation for clearing the field.
+
+Depending on your solution, you may see the following warning in your console:
+
+```
+Warning: Invalid value for prop `reset` on <input> tag. Either remove it from the element, or pass a string or number value to keep it in the DOM. For details, see https://reactjs.org/link/attribute-behavior
 ```
