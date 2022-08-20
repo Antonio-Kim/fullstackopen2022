@@ -67,3 +67,40 @@ Depending on your solution, you may see the following warning in your console:
 ```
 Warning: Invalid value for prop `reset` on <input> tag. Either remove it from the element, or pass a string or number value to keep it in the DOM. For details, see https://reactjs.org/link/attribute-behavior
 ```
+
+## 7.6: anecdotes and hooks step 3
+
+If your solution did not cause a warning to appear in the console, you have already finished this exercise.
+
+If you see the warning in the console, make the necessary changes to get rid of the Invalid value for prop `reset` on <input> tag console warning.
+
+The reason for this warning is that after making the changes to your application, the following expression:
+
+```JS
+<input {...content}/>
+```
+
+Essentially, is the same as this:
+
+```JS
+<input
+  value={content.value}
+  type={content.type}
+  onChange={content.onChange}
+  reset={content.reset}
+/>
+```
+
+The input element should not be given a reset attribute.
+
+One simple fix would be to not use the spread syntax and write all of the forms like this:
+
+```JS
+<input
+  value={username.value}
+  type={username.type}
+  onChange={username.onChange}
+/>
+```
+
+If we were to do this, we would lose much of the benefit provided by the useField hook. Instead, come up with a solution that fixes the issue, but is still easy to use with spread syntax.

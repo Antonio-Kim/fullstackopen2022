@@ -135,7 +135,6 @@ const CreateNew = (props) => {
     resetContent();
     resetAuthor();
     resetInfo();
-    console.log(content);
   };
 
   return (
