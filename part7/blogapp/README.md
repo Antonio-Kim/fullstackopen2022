@@ -7,3 +7,9 @@ In the previous parts we used ESLint to ensure that code to follows the defined 
 Prettier is easy to integrate to the code editor, so that when the code is saved, it is automatically formatted correctly.
 
 Take Prettier to use in your app and configure it to work with your editor.
+
+## 7.10: redux, step 1
+
+Refactor the application from using internal React component state to using Redux for the application's state management.
+
+Change the application's notifications to use Redux at this point of the exercise set.

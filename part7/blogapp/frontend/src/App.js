@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Blog from "./components/Blog";
 import LoginForm from "./components/LoginForm";
@@ -10,10 +11,13 @@ import blogService from "./services/blogs";
 import loginService from "./services/login";
 import userService from "./services/user";
 
+import { notify, getMessage } from "./reducers/notificationReducer";
+
 const App = () => {
+  const dispatch = useDispatch();
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
-  const [notification, setNotification] = useState(null);
+  const notification = useSelector(getMessage);
   const blogFormRef = useRef();
   const byLikes = (b1, b2) => (b2.likes > b1.likes ? 1 : -1);
 
@@ -37,31 +41,39 @@ const App = () => {
       .then((user) => {
         setUser(user);
         userService.setUser(user);
-        notify(`${user.name} logged in!`);
+        dispatch(notify({ message: `${user.name} logged in!`, type: "info" }));
       })
       .catch(() => {
-        notify("wrong username/password", "alert");
+        dispatch(notify({ message: "wrong username/password", type: "alert" }));
       });
   };
 
   const logout = () => {
     setUser(null);
     userService.clearUser();
-    notify("good bye!");
+    dispatch(notify({ message: "good bye!", type: "info" }));
   };
 
   const createBlog = async (blog) => {
     blogService
       .create(blog)
       .then((createdBlog) => {
-        notify(
-          `a new blog '${createdBlog.title}' by ${createdBlog.author} added`
+        dispatch(
+          notify({
+            message: `a new blog '${createdBlog.title}' by ${createdBlog.author} added`,
+            type: "info",
+          })
         );
         setBlogs(blogs.concat(createdBlog));
         blogFormRef.current.toggleVisibility();
       })
       .catch((error) => {
-        notify("creating a blog failed: " + error.response.data.error, "alert");
+        dispatch(
+          notify({
+            message: "creating a blog failed: " + error.response.data.error,
+            type: "alert",
+          })
+        );
       });
   };
 
@@ -91,19 +103,17 @@ const App = () => {
     };
 
     blogService.update(liked.id, liked).then((updatedBlog) => {
-      notify(`you liked '${updatedBlog.title}' by ${updatedBlog.author}`);
+      dispatch(
+        notify({
+          message: `you liked '${updatedBlog.title}' by ${updatedBlog.author}`,
+          type: "info",
+        })
+      );
       const updatedBlogs = blogs
         .map((b) => (b.id === id ? updatedBlog : b))
         .sort(byLikes);
       setBlogs(updatedBlogs);
     });
-  };
-
-  const notify = (message, type = "info") => {
-    setNotification({ message, type });
-    setTimeout(() => {
-      setNotification(null);
-    }, 5000);
   };
 
   if (user === null) {
