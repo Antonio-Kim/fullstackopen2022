@@ -17,6 +17,8 @@ import {
   getBlog,
   initializeBlogs,
   newBlog,
+  deleteBlog,
+  likeABlog,
 } from "./reducers/blogReducer";
 
 const App = () => {
@@ -93,7 +95,7 @@ const App = () => {
       return;
     }
 
-    blogService.remove(id).then(() => {
+    dispatch(deleteBlog(id)).then(() => {
       const updatedBlogs = blogs.filter((b) => b.id !== id).sort(byLikes);
       dispatch(setBlogs(updatedBlogs));
     });
@@ -107,7 +109,7 @@ const App = () => {
       user: toLike.user.id,
     };
 
-    blogService.update(liked.id, liked).then((updatedBlog) => {
+    dispatch(likeABlog(liked.id, liked)).then((updatedBlog) => {
       dispatch(
         notify({
           message: `you liked '${updatedBlog.title}' by ${updatedBlog.author}`,

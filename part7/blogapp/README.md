@@ -21,3 +21,7 @@ Note that this and the next two exercises are quite laborious but incredibly edu
 Store the information about blog posts in the Redux store. In this exercise, it is enough that you can see the blogs in the backend and create a new blog.
 
 You are free to manage the state for logging in and creating new blog posts by using the internal state of React components.
+
+## 7.12: redux, step 3
+
+Expand your solution so that it is again possible to like and delete a blog.
