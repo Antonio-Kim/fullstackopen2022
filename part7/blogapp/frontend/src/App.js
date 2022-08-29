@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Blog from "./components/Blog";
@@ -7,7 +7,6 @@ import NewBlogForm from "./components/NewBlogForm";
 import Notification from "./components/Notification";
 import Togglable from "./components/Togglable";
 
-import blogService from "./services/blogs";
 import loginService from "./services/login";
 import userService from "./services/user";
 
@@ -21,10 +20,12 @@ import {
   likeABlog,
 } from "./reducers/blogReducer";
 
+import { initializeUser, setUser } from "./reducers/userReducer";
+
 const App = () => {
   const dispatch = useDispatch();
   const blogs = useSelector(getBlog);
-  const [user, setUser] = useState(null);
+  const user = useSelector(initializeUser);
   const notification = useSelector(getMessage);
   const blogFormRef = useRef();
   const byLikes = (b1, b2) => (b2.likes > b1.likes ? 1 : -1);
@@ -36,9 +37,9 @@ const App = () => {
   useEffect(() => {
     const userFromStorage = userService.getUser();
     if (userFromStorage) {
-      setUser(userFromStorage);
+      dispatch(setUser(userFromStorage));
     }
-  }, []);
+  }, [dispatch]);
 
   const login = async (username, password) => {
     loginService
@@ -47,8 +48,8 @@ const App = () => {
         password,
       })
       .then((user) => {
-        setUser(user);
         userService.setUser(user);
+        dispatch(setUser(user));
         dispatch(notify({ message: `${user.name} logged in!`, type: "info" }));
       })
       .catch(() => {
@@ -57,8 +58,8 @@ const App = () => {
   };
 
   const logout = () => {
-    setUser(null);
     userService.clearUser();
+    dispatch(setUser(null));
     dispatch(notify({ message: "good bye!", type: "info" }));
   };
 
