@@ -12,18 +12,24 @@ import loginService from "./services/login";
 import userService from "./services/user";
 
 import { notify, getMessage } from "./reducers/notificationReducer";
+import {
+  setBlogs,
+  getBlog,
+  initializeBlogs,
+  newBlog,
+} from "./reducers/blogReducer";
 
 const App = () => {
   const dispatch = useDispatch();
-  const [blogs, setBlogs] = useState([]);
+  const blogs = useSelector(getBlog);
   const [user, setUser] = useState(null);
   const notification = useSelector(getMessage);
   const blogFormRef = useRef();
   const byLikes = (b1, b2) => (b2.likes > b1.likes ? 1 : -1);
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs.sort(byLikes)));
-  }, []);
+    dispatch(initializeBlogs());
+  }, [dispatch]);
 
   useEffect(() => {
     const userFromStorage = userService.getUser();
@@ -55,8 +61,7 @@ const App = () => {
   };
 
   const createBlog = async (blog) => {
-    blogService
-      .create(blog)
+    dispatch(newBlog(blog))
       .then((createdBlog) => {
         dispatch(
           notify({
@@ -64,7 +69,7 @@ const App = () => {
             type: "info",
           })
         );
-        setBlogs(blogs.concat(createdBlog));
+        dispatch(setBlogs(blogs.concat(createdBlog)));
         blogFormRef.current.toggleVisibility();
       })
       .catch((error) => {
@@ -90,7 +95,7 @@ const App = () => {
 
     blogService.remove(id).then(() => {
       const updatedBlogs = blogs.filter((b) => b.id !== id).sort(byLikes);
-      setBlogs(updatedBlogs);
+      dispatch(setBlogs(updatedBlogs));
     });
   };
 
@@ -112,7 +117,7 @@ const App = () => {
       const updatedBlogs = blogs
         .map((b) => (b.id === id ? updatedBlog : b))
         .sort(byLikes);
-      setBlogs(updatedBlogs);
+      dispatch(setBlogs(updatedBlogs));
     });
   };
 
