@@ -1,3 +1,5 @@
+import axios from "axios";
+
 let token = null;
 
 const STORAGE_KEY = "loggedBlogAppUser";
@@ -25,9 +27,15 @@ const clearUser = () => {
 
 const getToken = () => token;
 
+const getAllUsers = () => {
+  const request = axios.get("/api/users");
+  return request.then((response) => response.data);
+}
+
 export default {
   setUser,
   getUser,
   clearUser,
   getToken,
+  getAllUsers,
 };

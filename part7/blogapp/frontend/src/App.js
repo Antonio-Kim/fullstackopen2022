@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Blog from "./components/Blog";
@@ -22,13 +22,13 @@ import {
 
 import { initializeUser, setUser } from "./reducers/userReducer";
 
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 const App = () => {
   const dispatch = useDispatch();
   const blogs = useSelector(getBlog);
   const user = useSelector(initializeUser);
   const notification = useSelector(getMessage);
-  const blogFormRef = useRef();
-  const byLikes = (b1, b2) => (b2.likes > b1.likes ? 1 : -1);
 
   useEffect(() => {
     dispatch(initializeBlogs());
@@ -63,27 +63,65 @@ const App = () => {
     dispatch(notify({ message: "good bye!", type: "info" }));
   };
 
-  const createBlog = async (blog) => {
-    dispatch(newBlog(blog))
-      .then((createdBlog) => {
-        dispatch(
-          notify({
-            message: `a new blog '${createdBlog.title}' by ${createdBlog.author} added`,
-            type: "info",
-          })
-        );
-        dispatch(setBlogs(blogs.concat(createdBlog)));
-        blogFormRef.current.toggleVisibility();
-      })
-      .catch((error) => {
-        dispatch(
-          notify({
-            message: "creating a blog failed: " + error.response.data.error,
-            type: "alert",
-          })
-        );
-      });
-  };
+  if (user === null) {
+    return (
+      <>
+        <Notification notification={notification} />
+        <LoginForm onLogin={login} />
+      </>
+    );
+  }
+
+  return (
+    <div>
+      <h2>blogs</h2>
+
+      <Notification notification={notification} />
+
+      <div>
+        {user.name} logged in
+        <button onClick={logout}>logout</button>
+      </div>
+
+      <Router>
+        <div>
+          <Routes>
+            <Route path="/" element={<Home blogs={blogs} />} />
+            <Route path="/users" element={<Users />} />
+          </Routes>
+        </div>
+      </Router>
+    </div>
+  );
+};
+
+const Users = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    userService.getAllUsers().then(response => {
+      setUsers(response);
+    })
+  },[])
+
+  return (
+    <div>
+      <h2>users</h2>
+      <table>
+        <thead></thead>
+        <tbody>
+          {users.map( user => <tr><td>{user.name}</td><td>{user.blogs.length}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const Home = ({ blogs }) => {
+  const dispatch = useDispatch();
+  const blogFormRef = useRef();
+  const user = useSelector(initializeUser);
+  const byLikes = (b1, b2) => (b2.likes > b1.likes ? 1 : -1);
 
   const removeBlog = (id) => {
     const toRemove = blogs.find((b) => b.id === id);
@@ -124,26 +162,30 @@ const App = () => {
     });
   };
 
-  if (user === null) {
-    return (
-      <>
-        <Notification notification={notification} />
-        <LoginForm onLogin={login} />
-      </>
-    );
-  }
+  const createBlog = async (blog) => {
+    dispatch(newBlog(blog))
+      .then((createdBlog) => {
+        dispatch(
+          notify({
+            message: `a new blog '${createdBlog.title}' by ${createdBlog.author} added`,
+            type: "info",
+          })
+        );
+        dispatch(setBlogs(blogs.concat(createdBlog)));
+        blogFormRef.current.toggleVisibility();
+      })
+      .catch((error) => {
+        dispatch(
+          notify({
+            message: "creating a blog failed: " + error.response.data.error,
+            type: "alert",
+          })
+        );
+      });
+  };
 
   return (
     <div>
-      <h2>blogs</h2>
-
-      <Notification notification={notification} />
-
-      <div>
-        {user.name} logged in
-        <button onClick={logout}>logout</button>
-      </div>
-
       <Togglable buttonLabel="new note" ref={blogFormRef}>
         <NewBlogForm onCreate={createBlog} />
       </Togglable>
