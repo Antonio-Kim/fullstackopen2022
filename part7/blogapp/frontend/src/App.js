@@ -22,7 +22,13 @@ import {
 
 import { initializeUser, setUser } from "./reducers/userReducer";
 
-import { BrowserRouter as Router, Routes, Route, Link, useParams } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useParams,
+} from "react-router-dom";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -71,17 +77,27 @@ const App = () => {
       </>
     );
   }
+  const padding = {
+    padding: 5,
+  };
 
   return (
     <div>
+      <Router>
+        <div style={{ backgroundColor: "lightgrey", padding: 5}}>
+          <Link style={padding} to="/">
+            home
+          </Link>
+          <Link style={padding} to="/users">
+            users
+          </Link>
+          {user.name} logged in
+          <button onClick={logout}>logout</button>
+        </div>
+      </Router>
       <h2>blogs</h2>
 
       <Notification notification={notification} />
-
-      <div>
-        {user.name} logged in
-        <button onClick={logout}>logout</button>
-      </div>
 
       <Router>
         <div>
@@ -99,12 +115,14 @@ const App = () => {
 
 const IndividualBlog = () => {
   const dispatch = useDispatch();
-  const blogs = useSelector(state => state.blogs);
+  const blogs = useSelector((state) => state.blogs);
   const id = useParams().id;
-  const blog = blogs.find(blog => blog.id === id);
+  const blog = blogs.find((blog) => blog.id === id);
   const byLikes = (b1, b2) => (b2.likes > b1.likes ? 1 : -1);
-  const addedBy = `added by ${blog.user && blog.user.name ? blog.user.name : "anonymous"}`;
-  
+  const addedBy = `added by ${
+    blog.user && blog.user.name ? blog.user.name : "anonymous"
+  }`;
+
   const likeBlog = async (id) => {
     const toLike = blogs.find((b) => b.id === id);
     const liked = {
@@ -129,27 +147,31 @@ const IndividualBlog = () => {
 
   return (
     <div>
-      <h2>{blog.title} {blog.author}</h2>
-      <div><a href={blog.url}>{blog.url}</a></div>
+      <h2>
+        {blog.title} {blog.author}
+      </h2>
+      <div>
+        <a href={blog.url}>{blog.url}</a>
+      </div>
       <div>
         {blog.likes} likes{" "}
         <button onClick={() => likeBlog(blog.id)}>like</button>
       </div>
       <div>{addedBy}</div>
     </div>
-  )
-}
+  );
+};
 
 const User = () => {
   const [users, setUsers] = useState([]);
-  const id = useParams().id
-  const user = users.find(user => user.id === id);
-  
+  const id = useParams().id;
+  const user = users.find((user) => user.id === id);
+
   useEffect(() => {
     userService.getAllUsers().then((response) => {
-      setUsers(response)
-    })
-  },[])
+      setUsers(response);
+    });
+  }, []);
 
   if (!user) {
     return null;
@@ -160,11 +182,13 @@ const User = () => {
       <h2>{user.name}</h2>
       <h3>added blogs</h3>
       <ul>
-        {user.blogs.map(blog => (<li key={blog.id}>{blog.title}</li>))}
+        {user.blogs.map((blog) => (
+          <li key={blog.id}>{blog.title}</li>
+        ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -188,7 +212,9 @@ const Users = () => {
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td><Link to={`/users/${user.id}`}>{user.name}</Link></td>
+              <td>
+                <Link to={`/users/${user.id}`}>{user.name}</Link>
+              </td>
               <td>{user.blogs.length}</td>
             </tr>
           ))}
@@ -273,9 +299,8 @@ const Home = ({ blogs }) => {
 
       <div id="blogs">
         {blogs.map((blog) => (
-          <Link to={`/blogs/${blog.id}`}>
+          <Link key={blog.id} to={`/blogs/${blog.id}`}>
             <Blog
-              key={blog.id}
               blog={blog}
               likeBlog={likeBlog}
               removeBlog={removeBlog}
