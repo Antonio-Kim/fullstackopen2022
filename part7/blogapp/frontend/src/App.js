@@ -99,18 +99,28 @@ const Users = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    userService.getAllUsers().then(response => {
+    userService.getAllUsers().then((response) => {
       setUsers(response);
-    })
-  },[])
+    });
+  }, []);
 
   return (
     <div>
-      <h2>users</h2>
+      <h2>Users</h2>
       <table>
-        <thead></thead>
+        <thead>
+          <tr>
+            <th></th>
+            <th>blogs created</th>
+          </tr>
+        </thead>
         <tbody>
-          {users.map( user => <tr><td>{user.name}</td><td>{user.blogs.length}</td></tr>)}
+          {users.map((user) => (
+            <tr key={user.id}>
+              <td>{user.name}</td>
+              <td>{user.blogs.length}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
