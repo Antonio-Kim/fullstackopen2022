@@ -31,4 +31,33 @@ Expand your solution so that it is again possible to like and delete a blog.
 Store the information about the signed-in user in the Redux store.
 
 ## 7.14: Users view
+
 Implement a view to the application that displays all of the basic information related to users
+
+## 7.15: Individual user view
+Implement a view for individual users that displays all of the blog posts added by that user. You can access the view by clicking the name of the user in the view that lists all users
+
+NB: you will almost certainly stumble across the following error message during this exercise:
+
+```
+TypeError: Cannot read property name or undefined
+```
+
+The error message will occur if you refresh the page for an individual user.
+
+The cause of the issue is that, when we navigate directly to the page of an individual user, the React application has not yet received the data from the backend. One solution for fixing the problem is to use conditional rendering:
+
+```JS
+const User = () => {
+  const user = ...
+  if (!user) {
+    return null
+  }
+
+  return (
+    <div>
+      // ...
+    </div>
+  )
+}
+```

@@ -22,7 +22,7 @@ import {
 
 import { initializeUser, setUser } from "./reducers/userReducer";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useParams } from "react-router-dom";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -88,12 +88,40 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home blogs={blogs} />} />
             <Route path="/users" element={<Users />} />
+            <Route path="/users/:id" element={<User />} />
           </Routes>
         </div>
       </Router>
     </div>
   );
 };
+
+const User = () => {
+  const [users, setUsers] = useState([]);
+  const id = useParams().id
+  const user = users.find(user => user.id === id);
+  
+
+  useEffect(() => {
+    userService.getAllUsers().then((response) => {
+      setUsers(response)
+    })
+  },[])
+
+  if (!user) {
+    return null;
+  }
+
+  return (
+    <div>
+      <h2>{user.name}</h2>
+      <h3>added blogs</h3>
+      <ul>
+        {user.blogs.map(blog => (<li key={blog.id}>{blog.title}</li>))}
+      </ul>
+    </div>
+  )
+}
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -117,7 +145,7 @@ const Users = () => {
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
-              <td>{user.name}</td>
+              <td><Link to={`/users/${user.id}`}>{user.name}</Link></td>
               <td>{user.blogs.length}</td>
             </tr>
           ))}
