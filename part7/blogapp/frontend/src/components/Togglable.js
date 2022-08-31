@@ -1,4 +1,14 @@
 import { useState, useImperativeHandle, forwardRef } from "react";
+import styled from "styled-components";
+
+const Button = styled.button`
+  color: tomato;
+  border-color: tomato;
+  font-size: 1em;
+  padding: 0.2 1em;
+  border: 2px solid;
+  border-radius: 3px;
+`
 
 const Togglable = forwardRef((props, ref) => {
   const [visible, setVisible] = useState(false);
@@ -19,11 +29,11 @@ const Togglable = forwardRef((props, ref) => {
   return (
     <div>
       <div style={hideWhenVisible}>
-        <button onClick={toggleVisibility}>{props.buttonLabel}</button>
+        <Button onClick={toggleVisibility}>{props.buttonLabel}</Button>
       </div>
       <div style={showWhenVisible}>
         {props.children}
-        <button onClick={toggleVisibility}>cancel</button>
+        <Button onClick={toggleVisibility}>cancel</Button>
       </div>
     </div>
   );

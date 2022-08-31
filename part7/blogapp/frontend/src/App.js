@@ -30,6 +30,19 @@ import {
   useParams,
 } from "react-router-dom";
 
+import styled from "styled-components";
+
+const Navigation = styled.div`
+  background: lightgrey;
+  padding: 1em;
+  margin-top: 1em;
+`;
+
+const Page = styled.div`
+  background: skyblue;
+  padding: 1em;
+`
+
 const App = () => {
   const dispatch = useDispatch();
   const blogs = useSelector(getBlog);
@@ -82,18 +95,20 @@ const App = () => {
   };
 
   return (
-    <div>
+    <Page>
       <Router>
-        <div style={{ backgroundColor: "lightgrey", padding: 5}}>
-          <Link style={padding} to="/">
-            home
-          </Link>
-          <Link style={padding} to="/users">
-            users
-          </Link>
-          {user.name} logged in
-          <button onClick={logout}>logout</button>
-        </div>
+        <Navigation>
+          <div>
+            <Link style={padding} to="/">
+              home
+            </Link>
+            <Link style={padding} to="/users">
+              users
+            </Link>
+            {user.name} logged in
+            <button onClick={logout}>logout</button>
+          </div>
+        </Navigation>
       </Router>
       <h2>blogs</h2>
 
@@ -109,7 +124,7 @@ const App = () => {
           </Routes>
         </div>
       </Router>
-    </div>
+    </Page>
   );
 };
 

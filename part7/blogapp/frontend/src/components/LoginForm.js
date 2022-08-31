@@ -1,5 +1,16 @@
 import { useState } from "react";
 
+import styled from "styled-components";
+
+const Button = styled.button`
+  background: transparent;
+  border-radius: 3px;
+  border: 2px solid palevioletred;
+  color: palevioletred;
+  margin: 0 1em;
+  padding: 0.25em 1em;
+`;
+
 const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -31,9 +42,9 @@ const LoginForm = ({ onLogin }) => {
             id="password"
           />
         </div>
-        <button id="login-button" type="submit">
+        <Button id="login-button" type="submit">
           login
-        </button>
+        </Button>
       </form>
     </div>
   );

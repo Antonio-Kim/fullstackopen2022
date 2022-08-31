@@ -71,4 +71,12 @@ After you're done with this exercise, the functionality that was implemented in 
 
 ## 7.17: Navigation
 
-Implement a navigation menu for the application:
+Implement a navigation menu for the application
+
+## 7.20: Styles, step 1
+
+Improve the appearance of your application by applying one of the methods shown in the course material.
+
+## 7.21: Styles, step 2
+
+You can mark this exercise as finished if you use an hour or more for styling your application.

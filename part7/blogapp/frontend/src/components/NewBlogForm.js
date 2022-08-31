@@ -1,4 +1,31 @@
 import { useState } from "react";
+import styled from "styled-components";
+
+const Input = styled.input`
+  margin: 0.25em;
+`
+const Form = styled.form`
+  color: darkblue;
+  font-size: 1em;
+  padding: 1em;
+  border: 2px solid;
+  border-radius: 3px;
+  margin-bottom: 1em;
+`
+
+const Button = styled.button`
+  font-size: 1em;
+  background: white;
+  border: 2px solid green;
+  border-radius: 3px;
+  padding: 0.2 1em;
+  color: green;
+`
+
+const Title = styled.h2`
+  font-size: 1.5em;
+  color: darkblue;
+`
 
 const NewBlogForm = ({ onCreate }) => {
   const [title, setTitle] = useState("");
@@ -15,12 +42,12 @@ const NewBlogForm = ({ onCreate }) => {
 
   return (
     <div>
-      <h2>Create new</h2>
+      <Title>Create new</Title>
 
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <div>
           title
-          <input
+          <Input
             value={title}
             onChange={({ target }) => setTitle(target.value)}
             id="title"
@@ -29,7 +56,7 @@ const NewBlogForm = ({ onCreate }) => {
         </div>
         <div>
           author
-          <input
+          <Input
             value={author}
             onChange={({ target }) => setAuthor(target.value)}
             id="author"
@@ -45,10 +72,10 @@ const NewBlogForm = ({ onCreate }) => {
             placeholder="url of the blog"
           />
         </div>
-        <button id="create-butto" type="submit">
+        <Button id="create-butto" type="submit">
           create
-        </button>
-      </form>
+        </Button>
+      </Form>
     </div>
   );
 };
