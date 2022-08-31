@@ -35,6 +35,7 @@ Store the information about the signed-in user in the Redux store.
 Implement a view to the application that displays all of the basic information related to users
 
 ## 7.15: Individual user view
+
 Implement a view for individual users that displays all of the blog posts added by that user. You can access the view by clicking the name of the user in the view that lists all users
 
 NB: you will almost certainly stumble across the following error message during this exercise:
@@ -61,3 +62,9 @@ const User = () => {
   )
 }
 ```
+
+## 7.16: Blog view
+
+Implement a separate view for blog posts. You can model the layout of your view after the following example. Users should be able to access the view by clicking the name of the blog post in the view that lists all of the blog posts.
+
+After you're done with this exercise, the functionality that was implemented in exercise 5.7 is no longer necessary. Clicking a blog post no longer needs to expand the item in the list and display the details of the blog post.

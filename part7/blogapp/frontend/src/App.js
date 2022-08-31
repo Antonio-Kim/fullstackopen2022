@@ -87,6 +87,7 @@ const App = () => {
         <div>
           <Routes>
             <Route path="/" element={<Home blogs={blogs} />} />
+            <Route path="/blogs/:id" element={<IndividualBlog />} />
             <Route path="/users" element={<Users />} />
             <Route path="/users/:id" element={<User />} />
           </Routes>
@@ -96,12 +97,54 @@ const App = () => {
   );
 };
 
+const IndividualBlog = () => {
+  const dispatch = useDispatch();
+  const blogs = useSelector(state => state.blogs);
+  const id = useParams().id;
+  const blog = blogs.find(blog => blog.id === id);
+  const byLikes = (b1, b2) => (b2.likes > b1.likes ? 1 : -1);
+  const addedBy = `added by ${blog.user && blog.user.name ? blog.user.name : "anonymous"}`;
+  
+  const likeBlog = async (id) => {
+    const toLike = blogs.find((b) => b.id === id);
+    const liked = {
+      ...toLike,
+      likes: (toLike.likes || 0) + 1,
+      user: toLike.user.id,
+    };
+
+    dispatch(likeABlog(liked.id, liked)).then((updatedBlog) => {
+      dispatch(
+        notify({
+          message: `you liked '${updatedBlog.title}' by ${updatedBlog.author}`,
+          type: "info",
+        })
+      );
+      const updatedBlogs = blogs
+        .map((b) => (b.id === id ? updatedBlog : b))
+        .sort(byLikes);
+      dispatch(setBlogs(updatedBlogs));
+    });
+  };
+
+  return (
+    <div>
+      <h2>{blog.title} {blog.author}</h2>
+      <div><a href={blog.url}>{blog.url}</a></div>
+      <div>
+        {blog.likes} likes{" "}
+        <button onClick={() => likeBlog(blog.id)}>like</button>
+      </div>
+      <div>{addedBy}</div>
+    </div>
+  )
+}
+
 const User = () => {
   const [users, setUsers] = useState([]);
   const id = useParams().id
   const user = users.find(user => user.id === id);
   
-
   useEffect(() => {
     userService.getAllUsers().then((response) => {
       setUsers(response)
@@ -230,13 +273,15 @@ const Home = ({ blogs }) => {
 
       <div id="blogs">
         {blogs.map((blog) => (
-          <Blog
-            key={blog.id}
-            blog={blog}
-            likeBlog={likeBlog}
-            removeBlog={removeBlog}
-            user={user}
-          />
+          <Link to={`/blogs/${blog.id}`}>
+            <Blog
+              key={blog.id}
+              blog={blog}
+              likeBlog={likeBlog}
+              removeBlog={removeBlog}
+              user={user}
+            />
+          </Link>
         ))}
       </div>
     </div>
