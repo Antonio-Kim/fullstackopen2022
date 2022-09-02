@@ -65,3 +65,28 @@ If you call the function with parameters [3, 0, 2, 4.5, 0, 3, 1] and 2, it shoul
 ```
 Create a npm script, _npm run calculateExercises_, to call the function with hard-coded values.
 
+## 9.3 Command line
+Change the previous exercises so that you can give the parameters of _bmiCalculator_ and _exerciseCalculator_ as command-line arguments.
+
+Your program could work eg. as follows:
+```Bash
+$ npm run calculateBmi 180 91
+
+Overweight
+```
+and:
+
+```Bash
+$ npm run calculateExercises 2 1 0 2 4.5 0 3 1 0 4
+
+{ periodLength: 9,
+  trainingDays: 6,
+  success: false,
+  rating: 2,
+  ratingDescription: 'not too bad but could be better',
+  target: 2,
+  average: 1.7222222222222223 }
+```
+In the example, the _first argument_ is the target value.
+
+Handle exceptions and errors appropriately. The exerciseCalculator should accept inputs of varied lengths. Determine by yourself how you manage to collect all needed input.

@@ -50,4 +50,40 @@ const calculateExercises = (hours: Array<number>, target: number): Result => {
   };
 };
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+interface Exercise {
+  days: Array<number>;
+  target: number;
+}
+
+const parseArgument = (args: Array<string>): Exercise => {
+  if (args.length < 2) throw new Error("No parameters were added");
+
+  const [target, ...argv] = args.splice(2);
+  const dayArray = argv.map(item =>{
+    if (isNaN(Number(item))) {
+      throw new Error("The input is not a number")
+    } else {
+      return Number(item);
+    }
+  });
+  
+  if (isNaN(Number(target))) {
+    throw new Error("Target is not a number");
+  } else {
+    return {
+      days: dayArray,
+      target: Number(target)
+    }
+  }
+}
+
+try {
+  const { days, target } = parseArgument(process.argv);
+  console.log(calculateExercises(days, target))
+} catch (error: unknown) {
+  let errorMessage = "something went wrong...";
+  if (error instanceof Error) {
+    errorMessage += " Error: " + error.message;
+  }
+  console.log(errorMessage);
+}
