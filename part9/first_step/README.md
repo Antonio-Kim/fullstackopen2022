@@ -90,3 +90,28 @@ $ npm run calculateExercises 2 1 0 2 4.5 0 3 1 0 4
 In the example, the _first argument_ is the target value.
 
 Handle exceptions and errors appropriately. The exerciseCalculator should accept inputs of varied lengths. Determine by yourself how you manage to collect all needed input.
+
+## 9.4 Express
+Add Express to your dependencies and create an HTTP GET endpoint hello that answers 'Hello Full Stack!'
+
+The web app should be started with commands npm start in production mode and npm run dev in development mode. The latter should also use ts-node-dev to run the app.
+
+Replace also your existing tsconfig.json file with the following content:
+```JSON
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "strictBindCallApply": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "declaration": true,
+  }
+}
+```
+Make sure there aren't any errors!
