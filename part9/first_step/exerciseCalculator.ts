@@ -8,10 +8,13 @@ interface Result {
   average: number;
 }
 
-export const calculateExercises = (hours: Array<number>, target: number): Result => {
+export const calculateExercises = (
+  hours: Array<number>,
+  target: number
+): Result => {
   const periodLength = hours.length;
-  let total: number = 0;
-  let trainingDays: number = 0;
+  let total = 0;
+  let trainingDays = 0;
   let success: boolean;
   let rating: number;
   let ratingDescription: string;
@@ -59,27 +62,27 @@ const parseArgument = (args: Array<string>): Exercise => {
   if (args.length < 2) throw new Error("No parameters were added");
 
   const [target, ...argv] = args.splice(2);
-  const dayArray = argv.map(item =>{
+  const dayArray = argv.map((item) => {
     if (isNaN(Number(item))) {
-      throw new Error("The input is not a number")
+      throw new Error("The input is not a number");
     } else {
       return Number(item);
     }
   });
-  
+
   if (isNaN(Number(target))) {
     throw new Error("Target is not a number");
   } else {
     return {
       days: dayArray,
-      target: Number(target)
-    }
+      target: Number(target),
+    };
   }
-}
+};
 
 try {
   const { days, target } = parseArgument(process.argv);
-  console.log(calculateExercises(days, target))
+  console.log(calculateExercises(days, target));
 } catch (error: unknown) {
   let errorMessage = "something went wrong...";
   if (error instanceof Error) {

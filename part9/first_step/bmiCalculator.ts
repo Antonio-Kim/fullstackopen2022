@@ -1,5 +1,5 @@
 const calculateBmi = (height: number, weight: number): string => {
-  const result = weight / Math.pow((height / 100), 2);
+  const result = weight / Math.pow(height / 100, 2);
   if (result < 16) {
     return "Underweight (severe thinness)";
   } else if (result >= 16 && result < 17) {
@@ -31,16 +31,15 @@ const parseArguments = (args: Array<string>): bodyInfo => {
   if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
     return {
       height: Number(args[2]),
-      weight: Number(args[3])
-    }
+      weight: Number(args[3]),
+    };
   } else {
     throw new Error("Provided values were not numbers!");
   }
-
-}
+};
 
 try {
-  const { height, weight } = parseArguments(process.argv)
+  const { height, weight } = parseArguments(process.argv);
   console.log(calculateBmi(height, weight));
 } catch (error: unknown) {
   let errorMessage = "Something bad happened.";
