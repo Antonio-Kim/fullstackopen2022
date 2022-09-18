@@ -29,3 +29,11 @@ Create a type Diagnose and use it to create endpoint /api/diagnoses for fetching
 Structure your code properly by using meaningfully-named directories and files.
 
 Note that diagnoses may or may not contain the field latin. You might want to use optional properties in the type definition.
+
+## 9.11: Patientor backend, step4
+
+Create data type Patient and set up the GET endpoint /api/patients which returns all patients to the frontend, excluding field ssn. Use a utility type to make sure you are selecting and returning only the wanted fields.
+
+In this exercise, you may assume that field gender has type string.
+
+Try the endpoint with your browser and ensure that ssn is not included in the response. After creating the endpoint, ensure that the frontend shows the list of patients
