@@ -15,3 +15,35 @@ The points to discuss:
 - Would this setup be better in a self-hosted or a cloud-based environment? Why? What information would you need to make that decision?
 
 Remember that there are no 'right' answers to the above!
+
+## 11.2 The example project
+
+The first thing you'll want to do is to fork the example repository under your name. What it essentially does is it creates a copy of the repository under your GitHub user profile for your use.
+
+To fork the repository, you can click on the Fork button in the top-right area of the repository view next to the Star button:
+
+Once you've clicked on the Fork button, GitHub will start the creation of a new repository called {github_username}/full-stack-open-pokedex.
+
+Once the process has been finished, you should be redirected to your brand new repository:
+
+Clone the project now to your machine. As always, when starting with a new code, the most obvious place to look first is the file package.json
+
+Try now the following:
+
+- install dependencies (by running npm install)
+- start the code in development mode
+- run tests
+- lint the code
+
+You might notice that project contains some broken tests and linting errors. **Just leave them as they are for now**. We will get around those later in the exercises.
+
+As you might remember from part 3, the React code should not be run in development mode once it is deployed in production. Try now the following
+
+- create a production _build_ of the project
+- run the production version locally
+
+Also for these two tasks, there are ready-made npm scripts in the project!
+
+Study the structure of the project for a while. As you notice both the frontend and the backend code is now in the same repository. In earlier parts of the course we had a separate repository for both, but having those in the same repository makes things much simpler when setting up a CI environment.
+
+In contrast to most projects in this course, the frontend code _does not use_ create-react-app, but it has a relatively simple webpack configuration that takes care of creating the development environment and creating the production bundle.
