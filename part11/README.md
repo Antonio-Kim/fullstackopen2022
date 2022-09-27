@@ -62,3 +62,11 @@ To see what your GitHub Action workflow has done, you can navigate to the Action
 You should see the "Hello World!" message as an output. If that's the case then you have successfully gone through all the necessary steps. You have your first GitHub Actions workflow active!
 
 Note that GitHub Actions also gives you information what is the exact environment (operating system, and it's setup) where your workflow is run. This is important since if something surprising happens, it makes debugging so much easier if you can reproduce all the steps in your machine!
+
+## 11.4 Date and directory contents
+
+Extend the workflow with steps that print the date and current directory content in long format.
+
+Both of these are easy steps, and just running commands date and ls will do the trick.
+
+As the output of command ls -l shows, by default, the virtual environment that runs our workflow does not have any code!
