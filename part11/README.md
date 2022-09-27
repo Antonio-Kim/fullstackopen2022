@@ -47,3 +47,18 @@ Also for these two tasks, there are ready-made npm scripts in the project!
 Study the structure of the project for a while. As you notice both the frontend and the backend code is now in the same repository. In earlier parts of the course we had a separate repository for both, but having those in the same repository makes things much simpler when setting up a CI environment.
 
 In contrast to most projects in this course, the frontend code _does not use_ create-react-app, but it has a relatively simple webpack configuration that takes care of creating the development environment and creating the production bundle.
+
+## 11.3 Hello world!
+
+Create a new Workflow which outputs "Hello World!" to the user. For the setup, you should create the directory .github/workflowsand a file hello.ymlto your repository.
+
+To see what your GitHub Action workflow has done, you can navigate to the Actions tab in GitHub where you should see the workflows in your repository and the steps they implement. The output of your Hello World workflow should have:
+
+- hello_world_job as a title
+- Set up job
+- Say Hello
+- Complete job
+
+You should see the "Hello World!" message as an output. If that's the case then you have successfully gone through all the necessary steps. You have your first GitHub Actions workflow active!
+
+Note that GitHub Actions also gives you information what is the exact environment (operating system, and it's setup) where your workflow is run. This is important since if something surprising happens, it makes debugging so much easier if you can reproduce all the steps in your machine!
