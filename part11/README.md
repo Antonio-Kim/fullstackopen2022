@@ -70,3 +70,27 @@ Extend the workflow with steps that print the date and current directory content
 Both of these are easy steps, and just running commands date and ls will do the trick.
 
 As the output of command ls -l shows, by default, the virtual environment that runs our workflow does not have any code!
+
+## 11.5 Linting workflow
+
+Implement or copy-paste the "Lint" workflow and commit it to the repository. Use a new yml file for this workflow, you may call it e.g. pipeline.yml.
+
+Push your code and navigate to "Actions" tab and click on your newly created workflow on the left. You should see that the workflow run has failed:
+
+## 11.6 Fix the code
+
+There are some issues with the code that you will need to fix. Open up the workflow logs and investigate what is wrong.
+
+A couple of hints. One of the errors is best to be fixed by specifying proper env for linting, see here how it can be done . One of the complaints concerning console.logstatement could be taken care of by simply silencing the rule for that specific line. Ask google how to do it.
+
+Make the necessary changes to the source code so that the lint workflow passes. Once you commit new code the workflow will run again and you will see updated output where all is green again:
+
+## 11.7 Building and testing
+
+Let's expand on the previous workflow that currently does the linting of the code. Edit the workflow and similarly to the lint command add commands for build and test. As you might have guessed, there are some problems in code...
+
+## 11.8 Back to green
+
+Investigate which test fails and fix the issue in the code (do not change the tests).
+
+Once you have fixed all the issues and the Pokedex is bug-free, the workflow run will succeed and show green!
